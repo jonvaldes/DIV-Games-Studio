@@ -792,7 +792,7 @@ while(SDL_PollEvent(&event) )
 			
 		}
 		actualiza_caja(0,0,vga_an,vga_al);
-//		volcado_completo=1;
+//		full_dump=1;
 		dump(copia);
 		InitSound();
 		soundstopped=0;

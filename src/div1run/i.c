@@ -1072,7 +1072,7 @@ void frame_start(void) {
           if (joy_check!=last_joy_check) ss_exit=3;
         }
         ss_frame();
-        volcado_completo=1; dump(copia);
+        full_dump=1; dump(copia);
       } while (!ss_exit);
       if (ss_end!=NULL) ss_end();
       memcpy(copia,copia2,vga_an*vga_al);
@@ -1341,11 +1341,11 @@ emscripten_run_script (buf);
     if (buffer_to_video!=NULL) buffer_to_video(); else {
       if (old_dump_type) {
 
-        volcado_completo=1; dump(copia);
+        full_dump=1; dump(copia);
 
       } else {
 
-        volcado_completo=0;
+        full_dump=0;
 
         // Añade los volcados de este frame a los restore del anterior
 

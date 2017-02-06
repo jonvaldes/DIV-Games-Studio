@@ -669,7 +669,7 @@ GLOBAL_DATA int modo_fill; // Indica el algoritmo usado para los rellenos
 GLOBAL_DATA int modo_seleccion; // Indica el modo de seleccionar una zona
 GLOBAL_DATA int selected_icon; // (barra) -1 si no hay selec. ninguno, 0-zoom, ...
 
-GLOBAL_DATA int volcado_completo; // Indica si se ha modificado toda la copia de vga
+GLOBAL_DATA int full_dump; // Indica si se ha modificado toda la copia de vga
 
 GLOBAL_DATA byte * texto[max_textos]; // Textos de salida, en formato traducible
 

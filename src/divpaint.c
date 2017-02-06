@@ -3374,7 +3374,7 @@ void zoom_map2(void) {
     zy=0; al=vga_al>>zoom; zal=al<<zoom;
   }
 
-  if (zx || zy) partial_dump(zx,zy,zan,zal); else volcado_completo=1;
+  if (zx || zy) partial_dump(zx,zy,zan,zal); else full_dump=1;
 
   x=zoom_x; y=zoom_y;
 

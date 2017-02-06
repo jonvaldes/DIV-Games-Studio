@@ -3588,7 +3588,7 @@ byte * change_mode(void) {
   if (v.x+v.an>vga_an) v.x=vga_an-v.an;
   if (v.y+v.al>vga_al) v.y=vga_al-v.al;
   repinta_ventana(); call(v.paint_handler);
-  v.volcar=1; volcado_completo=1;
+  v.volcar=1; full_dump=1;
   return(v.ptr);
 }
 
@@ -3732,7 +3732,7 @@ void debug2(void) {
         if (call_to_debug) { call(v.paint_handler); v.volcar=1; break; }
       } while (ide);
       if (call_to_debug) {
-        volcado_completo=1; call_to_debug=0;
+        full_dump=1; call_to_debug=0;
         if (new_palette) { new_palette=0; repinta_ventana(); }
         break;
       }
@@ -3758,7 +3758,7 @@ void debug2(void) {
           determina_codigo();
         } if (new_palette) { new_palette=0; repinta_ventana(); }
         dread_mouse(); _process_items();
-        v.volcar=1; volcado_completo=1;
+        v.volcar=1; full_dump=1;
         if (no_volcar_nada) dialogo(profile0);
       } else fin_dialogo=1;
       break;
@@ -3809,7 +3809,7 @@ void debug2(void) {
             if (call_to_debug) { call(v.paint_handler); v.volcar=1; break; }
           } while(ide && ((ip>=mem1 && ip<=mem2) || mem[ip]==lasp || mem[ip]==lasiasp || mem[ip]==lcarasiasp || mem[ip]==lfunasp));
           if (call_to_debug) {
-            volcado_completo=1; call_to_debug=0;
+            full_dump=1; call_to_debug=0;
             if (new_palette) { new_palette=0; repinta_ventana(); }
             break;
           }
@@ -3828,7 +3828,7 @@ void debug2(void) {
         if (call_to_debug) { call(v.paint_handler); v.volcar=1; break; }
       } while(ide && ((ip>=mem1 && ip<=mem2) || mem[ip]==lasp || mem[ip]==lasiasp || mem[ip]==lcarasiasp || mem[ip]==lfunasp));
       if (call_to_debug) {
-        volcado_completo=1; call_to_debug=0;
+        full_dump=1; call_to_debug=0;
         if (new_palette) { new_palette=0; repinta_ventana(); }
         break;
       }
@@ -3845,7 +3845,7 @@ void debug2(void) {
           smouse_x=mouse->x; smouse_y=mouse->y;
           set_mouse(mouse_x,mouse_y);
           memcpy(copia_debug,copia,vga_an*vga_al);
-          volcado_completo=1;
+          full_dump=1;
         } else if (new_palette) set_dac();
         if (new_palette) { new_palette=0; repinta_ventana(); }
         ids_old=-1; call(v.paint_handler); v.volcar=1;
@@ -3882,7 +3882,7 @@ void debug2(void) {
         if (call_to_debug) { call(v.paint_handler); v.volcar=1; break; }
       } while(ide && ((ip>=mem1 && ip<=mem2) || mem[ip]==lasp || mem[ip]==lasiasp || mem[ip]==lcarasiasp || mem[ip]==lfunasp || process_level>0));
       if (call_to_debug) {
-        volcado_completo=1; call_to_debug=0;
+        full_dump=1; call_to_debug=0;
         if (new_palette) { new_palette=0; repinta_ventana(); }
         break;
       }
@@ -3899,7 +3899,7 @@ void debug2(void) {
           smouse_x=mouse->x; smouse_y=mouse->y;
           set_mouse(mouse_x,mouse_y);
           memcpy(copia_debug,copia,vga_an*vga_al);
-          volcado_completo=1;
+          full_dump=1;
         } else if (new_palette) set_dac();
         if (new_palette) { new_palette=0; repinta_ventana(); }
         ids_old=-1; call(v.paint_handler); v.volcar=1;
@@ -3926,7 +3926,7 @@ void debug2(void) {
       if (new_mode) ptr=change_mode();
       if (call_to_debug) {
         call(v.paint_handler); v.volcar=1;
-        volcado_completo=1; call_to_debug=0;
+        full_dump=1; call_to_debug=0;
         if (new_palette) { new_palette=0; repinta_ventana(); }
       }
       if (procesos) {
@@ -3942,7 +3942,7 @@ void debug2(void) {
           smouse_x=mouse->x; smouse_y=mouse->y;
           set_mouse(mouse_x,mouse_y);
           memcpy(copia_debug,copia,vga_an*vga_al);
-          volcado_completo=1;
+          full_dump=1;
         } else if (new_palette) set_dac();
         if (new_palette) { new_palette=0; repinta_ventana(); }
         ids_old=-1; call(v.paint_handler); v.volcar=1;

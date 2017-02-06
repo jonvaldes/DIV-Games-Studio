@@ -725,7 +725,7 @@ GLOBAL t_drawing drawing[max_drawings];
 // Sistema de volcados parciales (juegos sin scroll) - Aún no implementado
 //═════════════════════════════════════════════════════════════════════════════
 
-GLOBAL int volcado_completo; // Indica si se ha modificado toda la copia de vga
+GLOBAL int full_dump; // Indica si se ha modificado toda la copia de vga
                              // Por ahora se mantiene siempre a 1
 
 // Ya se ha implementado, la variable que controla ahora el tipo de

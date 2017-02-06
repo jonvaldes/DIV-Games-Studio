@@ -719,7 +719,7 @@ void inicializa_entorno() {
   }
 
 	actualiza_caja(0,0,vga_an,vga_al);
-    volcado_completo=1; dump(copia);
+    full_dump=1; dump(copia);
     
   if(!Interpretando) {
     if (!strlen(user1) || !strlen(user2)) {
@@ -1796,7 +1796,7 @@ void shell(void) {
 		
 		read_mouse();
 
-		volcado_completo=1; volcado_copia();
+		full_dump=1; volcado_copia();
 
 		InitSound();
 	}
@@ -2319,7 +2319,7 @@ void mueve_ventana(void) {
 //      actualiza_dialogos(x,y,an,al);
 //    } else actualiza_caja(oldx,oldy,an,al);
     se_ha_movido_desde(oldx,oldy,an,al);
-    volcado_completo=1;
+    full_dump=1;
     volcado_copia();
   }
 
@@ -3858,7 +3858,7 @@ fclose(f);
   set_dac(dac); 
   //read_mouse();
   preparar_tapiz();
-  volcado_completo=1;
+  full_dump=1;
   dump(copia);
 
   InitSound();

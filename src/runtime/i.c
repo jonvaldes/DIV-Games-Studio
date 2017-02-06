@@ -1107,7 +1107,7 @@ void frame_start(void) {
 				}
 				
 				ss_frame();
-				volcado_completo=1; 
+				full_dump=1; 
 				if (buffer_to_video!=NULL) 
 					buffer_to_video(); 
 				else
@@ -1625,10 +1625,10 @@ void frame_end(void) {
 					} else {
 
 					  if (old_dump_type) {
-						volcado_completo=1; dump((byte*)copia);
+						full_dump=1; dump((byte*)copia);
 					  } else {
 
-							volcado_completo=0;
+							full_dump=0;
 
 							// A�ade los volcados de este frame a los restore del anterior
 

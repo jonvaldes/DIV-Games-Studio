@@ -276,7 +276,7 @@ void zoom_map(void) {
     if (!zoom_background) {
       if (zx || zy) {
         actualiza_background();
-        volcado_completo=1;
+        full_dump=1;
       } else {
         if (_big) { big=0; big2=1; }
         if (zy+zal<vga_al) {
@@ -292,7 +292,7 @@ void zoom_map(void) {
       zoom_background=1;
     }
 
-    if (zx || zy) partial_dump(zx,zy,zan,zal); else volcado_completo=1;
+    if (zx || zy) partial_dump(zx,zy,zan,zal); else full_dump=1;
 
   } else {
     p=zoom_p; q=zoom_q; an=zoom_an; al=zoom_al;
@@ -1034,7 +1034,7 @@ byte * save_undo(int x, int y, int an, int al) {
   } else {
     fondo_edicion(0,0,vga_an,vga_al);
     volcar_barras(1);
-    volcado_completo=1; dump(copia);
+    full_dump=1; dump(copia);
     v_texto=(char *)texto[320]; dialogo(err0); undo_error=1;
   }
 

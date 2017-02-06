@@ -1670,7 +1670,7 @@ return;
       mouse_window();
       set_mouse(mouse->x,mouse->y);
       read_mouse();
-      volcado_completo=1;
+      full_dump=1;
     } else system((char*)&mem[itxt+pila[sp]]);
   }
 }

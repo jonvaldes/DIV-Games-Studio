@@ -607,7 +607,7 @@ void dump(byte *p) {
   if ((shift_status&4) && (shift_status&8) && scan_code==_P) snapshot(p);
 
 
-  if (volcado_completo) {
+  if (full_dump) {
     if (modovesa) volcadosdl(p);
     else switch(vga_an*1000+vga_al) {
       case 320200: volcadoc320200(p); break;
@@ -829,13 +829,13 @@ return;
 //═════════════════════════════════════════════════════════════════════════════
 
 void init_dump(void) { 
-	memset(&scan[0],0,MAX_YRES*8); volcado_completo=0; 
+	memset(&scan[0],0,MAX_YRES*8); full_dump=0; 
 }
 
 void partial_dump(int x,int y,int an,int al) {
   int ymax=0,xmax=0,n=0,d1=0,d2=0,x2=0;
 
-  if (an==vga_an && al==vga_al && x==0 && y==0) { volcado_completo=1; return; }
+  if (an==vga_an && al==vga_al && x==0 && y==0) { full_dump=1; return; }
 
   if (an>0 && al>0 && x<vga_an && y<vga_al) {
     if (x<0) { an+=x; x=0; } if (y<0) { al+=y; y=0; }

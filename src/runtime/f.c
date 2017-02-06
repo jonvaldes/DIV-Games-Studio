@@ -2422,7 +2422,7 @@ return;
       svmode(); set_dac();
       set_mouse(mouse->x,mouse->y);
       readmouse();
-      volcado_completo=1;
+      full_dump=1;
     } else {
 #ifdef DOS
       flushall();
