@@ -219,7 +219,7 @@ void help2(void) {
     if (scan_code==72 || (mouse_graf==7 && (mouse_b&1) && wmouse_x!=-1)) {
       if (scan_code!=72) if (!(v.botones&2)) {
         wput(v.ptr,an,al,an-9,10,-41); v.botones|=2;
-      } else { retrazo(); retrazo(); }
+      } else { retrace(); retrace(); }
       v.volcar++;
       if (help_line!=help_buffer+1) {
         help_line--; while (*(--help_line)); help_line++; help_l--;
@@ -236,7 +236,7 @@ void help2(void) {
     if (scan_code==80 || (mouse_graf==9 && (mouse_b&1) && wmouse_x!=-1)) {
       if (scan_code!=80) if (!(v.botones&4)) {
         wput(v.ptr,an,al,an-9,al-17,-42); v.botones|=4;
-      } else { retrazo(); retrazo(); } v.volcar++;
+      } else { retrace(); retrace(); } v.volcar++;
       if (help_l+help_al<help_lines) { while (*(help_line++)); help_l++; }
       vuelca_help();
     } else if (v.botones&4) { wput(v.ptr,an,al,an-9,al-17,-40); v.botones^=4; v.volcar++; }

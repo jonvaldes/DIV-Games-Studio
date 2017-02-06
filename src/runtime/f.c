@@ -578,7 +578,7 @@ void nueva_paleta(void) {
     } else p++;
   } last_c1=c1;
 
-  set_paleta();
+  set_palette();
 
   #ifdef DEBUG
   init_colors();
@@ -2030,7 +2030,7 @@ vvga_al = vga_al;
 
   dacout_r=64; dacout_g=64; dacout_b=64; dacout_speed=8;
   while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-    set_paleta(); set_dac(); //LoopSound();
+    set_palette(); set_dac(); //LoopSound();
   }
 
   if(copia!=NULL) {
@@ -2626,7 +2626,7 @@ void fade_off(void) {
   dacout_r=64; dacout_g=64; dacout_b=64; dacout_speed=8;
   if (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) 
   //{
-  //  set_paleta(); set_dac(); //LoopSound();
+  //  set_palette(); set_dac(); //LoopSound();
   //} 
   fading=1;
   pila[++sp]=0;

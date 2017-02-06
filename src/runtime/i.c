@@ -1198,7 +1198,7 @@ void frame_start(void) {
 		}
 #else
 		do {
-			retrazo();
+			retrace();
 		} while (get_reloj()<(int)freloj);
 #endif
 		volcados_saltados=0;
@@ -1594,13 +1594,13 @@ void frame_end(void) {
     // Si se est� haciendo un fade lo contin�a
 
 				if (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-					set_paleta();
+					set_palette();
 					set_dac();
 					fading=1;
 					retra=1;
 				} else {
 					if (activar_paleta) {
-						set_paleta();
+						set_palette();
 						set_dac();
 						retra=1;
 						activar_paleta--;
@@ -1618,7 +1618,7 @@ void frame_end(void) {
 #endif
 
 					if (!retra && vsync)
-						retrazo();
+						retrace();
 
 					if (buffer_to_video!=NULL) {
 						buffer_to_video();
@@ -1759,7 +1759,7 @@ void finalizacion (void) {
 	dacout_speed=4;
 
 	while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-		set_paleta();
+		set_palette();
 		set_dac();
 	}
 

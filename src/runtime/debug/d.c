@@ -1263,7 +1263,7 @@ void explode(int x,int y,int an,int al) {
     xx=x+an/2-aan/2; yy=y+al/2-aal/2;
     wrectangulo(copia,vga_an,vga_al,c4,xx,yy,aan,aal);
     partial_dump(xx,yy,aan,aal);
-    retrazo();
+    retrace();
     volcado_copia();
     actualiza_caja(xx,yy,aan,1); actualiza_caja(xx,yy,1,aal);
     actualiza_caja(xx+aan-1,yy,1,aal); actualiza_caja(xx,yy+aal-1,aan,1);
@@ -1282,7 +1282,7 @@ void implode(int x,int y,int an,int al) {
     partial_dump(xx,yy,aan,aal);
     volcado_copia();
     actualiza_caja(xx,yy,aan,aal);
-    retrazo();
+    retrace();
   } while (--n); big=b;
 }
 
@@ -1301,7 +1301,7 @@ void extrude(int x,int y,int an,int al,int x2,int y2,int an2,int al2) {
     partial_dump(xx,yy,aan,aal);
     volcado_copia();
     actualiza_caja(xx,yy,aan,aal);
-    retrazo();
+    retrace();
   } while (--n); big=b; v.tipo=tipo;
 }
 
@@ -1936,7 +1936,7 @@ void volcado_copia(void) {
 
   dacout_r=0; dacout_g=0; dacout_b=0; dacout_speed=16;
   while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-    set_paleta(); set_dac(); }
+    set_palette(); set_dac(); }
 
   // **************************************************
 
@@ -2114,7 +2114,7 @@ void e(int texto) {
   dacout_r=0; dacout_g=0; dacout_b=0; dacout_speed=16;
 
 //  while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-//    set_paleta(); set_dac();
+//    set_palette(); set_dac();
 //  }
 
   mouse_graf=1; v_texto=(char *)text[texto]; dialogo(_err0);
@@ -2496,7 +2496,7 @@ void debug(void) {
 
 //  dacout_r=0; dacout_g=0; dacout_b=0; dacout_speed=16;
 //  while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-//    set_paleta(); set_dac();
+//    set_palette(); set_dac();
 //  }
 
   new_palette=0; mouse_graf=1; dialogo(debug0);

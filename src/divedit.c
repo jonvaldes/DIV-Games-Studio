@@ -265,28 +265,28 @@ void programa2(void) {
   if (mouse_graf==7 && (mouse_b&1) && wmouse_x!=-1) {
     if (!(v.botones&2)) {
       wput(v.ptr,an,al,an-9,10,-41); v.botones|=2;
-    } else { retrazo(); retrazo(); } v.volcar++;
+    } else { retrace(); retrace(); } v.volcar++;
     write_line(); retrocede_vptr(); retrocede_lptr(); read_line();
   } else if (v.botones&2) { wput(v.ptr,an,al,an-9,10,-39); v.botones^=2; v.volcar++; }
 
   if (mouse_graf==9 && (mouse_b&1) && wmouse_x!=-1) {
     if (!(v.botones&4)) {
       wput(v.ptr,an,al,an-9,al-17,-42); v.botones|=4;
-    } else { retrazo(); retrazo(); } v.volcar++;
+    } else { retrace(); retrace(); } v.volcar++;
     write_line(); avanza_vptr(); avanza_lptr(); read_line();
   } else if (v.botones&4) { wput(v.ptr,an,al,an-9,al-17,-40); v.botones^=4; v.volcar++; }
 
   if (mouse_graf==10 && (mouse_b&1) && wmouse_x!=-1) {
     if (!(v.botones&8)) {
       wput(v.ptr,an,al,2,al-9,-53); v.botones|=8;
-    } else { retrazo(); retrazo(); } v.volcar++;
+    } else { retrace(); retrace(); } v.volcar++;
     f_left();
   } else if (v.botones&8) { wput(v.ptr,an,al,2,al-9,-51); v.botones^=8; v.volcar++; }
 
   if (mouse_graf==11 && (mouse_b&1) && wmouse_x!=-1) {
     if (!(v.botones&16)) {
       wput(v.ptr,an,al,an-17,al-9,-54); v.botones|=16;
-    } else { retrazo(); retrazo(); } v.volcar++;
+    } else { retrace(); retrace(); } v.volcar++;
     f_right();
   } else if (v.botones&16) { wput(v.ptr,an,al,an-17,al-9,-52); v.botones^=16; v.volcar++; }
 

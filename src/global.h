@@ -220,7 +220,7 @@ void invierte_ver(byte*,int,int);
 //      Functions exported by DIVVIDEO (divvideo.c)
 ///////////////////////////////////////////////////////////////////////////////
 
-void retrazo(void);
+void retrace(void);
 void svmode(void);
 void rvmode(void);
 void set_dac(byte*);

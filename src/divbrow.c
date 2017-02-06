@@ -2028,7 +2028,7 @@ void actualiza_listboxbr(struct t_listboxbr * l) {
   }
 
   if ((l->zona>0 && mouse_b&8) || (l->zona==2 && (mouse_b&1))) {
-    if (old_mouse_b&1) { retrazo(); retrazo(); retrazo(); retrazo(); }
+    if (old_mouse_b&1) { retrace(); retrace(); retrace(); retrace(); }
       if (l->inicial) {
         l->inicial-=l->columnas; pinta_listboxbr(l); v.volcar=1; }
       wput(ptr,an,al,l->x+(l->an+1)*l->columnas+1,l->y+1,-41);
@@ -2039,7 +2039,7 @@ void actualiza_listboxbr(struct t_listboxbr * l) {
   }
 
   if ((l->zona>0 && mouse_b&4) || (l->zona==3 && (mouse_b&1))) {
-    if (old_mouse_b&1) { retrazo(); retrazo(); retrazo(); retrazo(); }
+    if (old_mouse_b&1) { retrace(); retrace(); retrace(); retrace(); }
     n=l->maximo-l->inicial;
     if (n>l->lineas*l->columnas) {
       l->inicial+=l->columnas; pinta_listboxbr(l); v.volcar=1; }

@@ -115,7 +115,7 @@ extern int fli_palette_update;
 
 byte color_oscuro;
 
-void set_paleta (void) {
+void set_palette (void) {
   word n;
 //printf("set paleta\n");
   n=abs(dacout_speed); // if (n>64) n=64;
@@ -175,12 +175,12 @@ void set_dac (void) {
 	if(!OSDEP_SetPalette(vga, colors, 0, 256)) 
 		printf("Failed to set palette :(\n"); 
 	
-	retrazo();
+	retrace();
 #else
   union REGS regs;
   word n=0;
   if (fli_palette_update) return;
-  //retrazo();
+  //retrace();
   outp(0x3c8,0);
   do {
     outp(0x3c9,dac[n++]);
@@ -205,7 +205,7 @@ void set_dac2 (void) {
 #endif
 }
 
-void retrazo (void) {
+void retrace (void) {
 #ifdef DOS
   while (inp(0x3da)&8);
   while ((inp(0x3da)&8)==0);
@@ -584,7 +584,7 @@ if ((shift_status&4) && (shift_status&8) && key(_9)) {
   
   
 #endif
-  if (fli_palette_update) retrazo();
+  if (fli_palette_update) retrace();
 
 volcadosdl(p);
 

@@ -1089,12 +1089,12 @@ void frame_start(void) {
   // Si se está haciendo un fade lo continúa
 
   if (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-    set_paleta();
+    set_palette();
     set_dac();
     fading=1;
   } else {
     if (activar_paleta) {
-      set_paleta();
+      set_palette();
       set_dac();
       activar_paleta--;
     } fading=0;
@@ -1416,7 +1416,7 @@ void finalizacion (void) {
 
   dacout_r=64; dacout_g=64; dacout_b=64; dacout_speed=4;
   while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-    set_paleta(); set_dac();
+    set_palette(); set_dac();
   }
 
 #ifdef DIVDLL

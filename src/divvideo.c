@@ -112,9 +112,9 @@ struct {
 
 FPSmanager fpsman;
 
-void retrazo(void) {
+void retrace(void) {
 
-//printf("retrazo (vsync)\n");
+//printf("retrace (vsync)\n");
 SDL_framerateDelay(&fpsman);
 
 #ifdef NOTYET
@@ -142,7 +142,7 @@ void set_dac(byte *_dac) {
 		if(!OSDEP_SetPalette(vga, colors, 0, 256)) 
 			printf("Failed to set palette :(\n"); 
 //	}	
-	retrazo();
+	retrace();
 }
 
 //═════════════════════════════════════════════════════════════════════════════

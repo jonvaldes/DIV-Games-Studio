@@ -1052,7 +1052,7 @@ int undo_back(void) {
 
   if (tundo[a].modo!=-1 && tundo[a].codigo==codigo_mapa) {
 
-    iundo=a; retrazo();
+    iundo=a; retrace();
 
     x=tundo[a].x; y=tundo[a].y;
     an=tundo[a].an; al=tundo[a].al;
@@ -1089,7 +1089,7 @@ void undo_next(void) {
 
   if (tundo[iundo].modo!=-1 && tundo[iundo].codigo==codigo_mapa) {
 
-    retrazo();
+    retrace();
 
     x=tundo[iundo].x; y=tundo[iundo].y;
     an=tundo[iundo].an; al=tundo[iundo].al;

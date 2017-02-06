@@ -4,7 +4,7 @@
 memptrsize ScrBase;
 int ScrWidth, ScrHeight;
 int GfxOn=FALSE;
-void retrazo(void);
+void retrace(void);
 
 /****************************************************************************
 Func:	void InitGraph(void)
@@ -69,7 +69,7 @@ void SetPalette(VPEByte *pal_ptr)
        if(!OSDEP_SetPalette(vga, colors, 0, 256)) 
                printf("Failed to set palette :(\n"); 
        
-       retrazo();
+       retrace();
 #else
 
 	VPEShort i;

@@ -439,7 +439,7 @@ void nueva_paleta(void) {
     } else p++;
   } last_c1=c1;
 
-  set_paleta();
+  set_palette();
 
   #ifdef DEBUG
   init_colors();
@@ -1454,7 +1454,7 @@ void set_mode(void) {
 
   dacout_r=64; dacout_g=64; dacout_b=64; dacout_speed=8;
   while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-    set_paleta(); set_dac(); //LoopSound();
+    set_palette(); set_dac(); //LoopSound();
   }
 
   free(copia); free(copia2);
@@ -1846,7 +1846,7 @@ void fade_off(void) {
   int old_reloj=get_reloj();
   dacout_r=64; dacout_g=64; dacout_b=64; dacout_speed=8;
   while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
-    set_paleta(); set_dac(); //LoopSound();
+    set_palette(); set_dac(); //LoopSound();
   } fading=0; sp++; reloj=old_reloj;
 }
 

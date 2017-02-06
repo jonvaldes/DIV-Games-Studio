@@ -345,7 +345,7 @@ global argv[9]          // Punteros a los par metros (strings)
 
 global channel[31]      // Informaci¢n de los canales de sonido (a 1 si se toc¢ un sonido)
 
-global vsync=0          // Espera al retrazo (1-activa, 0-inactiva)
+global vsync=0          // Waits for retrace (1-active, 0-inactive)
 
 global draw_z=-255      // Prioridad de impresi¢n de las primitivas de dibujo
 

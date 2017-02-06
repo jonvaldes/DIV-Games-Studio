@@ -3214,9 +3214,9 @@ void nueva_ventana(voidReturnType init_handler) {
           move(0,n-1);
           wrectangulo(v.ptr,v.an/big2,v.al/big2,c4,0,0,v.an/big2,v.al/big2);
           init_dump(); vuelca_ventana(0);
-          retrazo(); volcado_copia();
+          retrace(); volcado_copia();
           wrectangulo(v.ptr,v.an/big2,v.al/big2,c2,0,0,v.an/big2,v.al/big2);
-          v.volcar=1; retrazo(); retrazo(); retrazo(); retrazo();
+          v.volcar=1; retrace(); retrace(); retrace(); retrace();
         }
       } else {
         divdelete(0);
@@ -3252,7 +3252,7 @@ void explode(int x,int y,int an,int al) {
     partial_dump(xx,yy+aal-1,aan,1);
     partial_dump(xx+aan-1,yy,1,aal);
     explode_num=n;
-    retrazo();
+    retrace();
     volcado_copia();
     if (modo<100) {
       if (b) big=1;
@@ -3296,7 +3296,7 @@ void implode(int x,int y,int an,int al) {
       actualiza_caja(xx,yy+aal-1,aan,1);
       actualiza_caja(xx+aan-1,yy,1,aal);
     }
-    retrazo();
+    retrace();
   } while (--n); big=b;
 }
 
@@ -3336,7 +3336,7 @@ void extrude(int x,int y,int an,int al,int x2,int y2,int an2,int al2) {
       actualiza_caja(xx+aan-1,yy,1,aal);
     }
 
-    if (primera_vez!=1) retrazo();
+    if (primera_vez!=1) retrace();
 
   } while (--n); big=b; v.tipo=tipo;
 }

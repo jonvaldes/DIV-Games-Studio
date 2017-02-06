@@ -2429,7 +2429,7 @@ void actualiza_listbox(struct t_listbox * l) {
 
   if ((mouse_b&8 && l->zona>0) || (l->zona==2 && ((mouse_b&1)||(v_pausa&&!(mouse_b&1)&&(old_mouse_b&1))))) {
     if (!v_pausa||(v_pausa&&!(mouse_b&1)&&(old_mouse_b&1))) {
-        if ((old_mouse_b&1)&&!v_pausa) { retrazo(); retrazo(); }
+        if ((old_mouse_b&1)&&!v_pausa) { retrace(); retrace(); }
         if (l->inicial) {
           l->inicial--; pinta_listbox(l); v.volcar=1; }
     }
@@ -2440,7 +2440,7 @@ void actualiza_listbox(struct t_listbox * l) {
 
   if ((mouse_b&4 && l->zona>0) || (l->zona==3 && ((mouse_b&1)||(v_pausa&&!(mouse_b&1)&&(old_mouse_b&1))))) {
     if (!v_pausa||(v_pausa&&!(mouse_b&1)&&(old_mouse_b&1))) {
-      if ((old_mouse_b&1)&&!v_pausa) { retrazo(); retrazo(); }
+      if ((old_mouse_b&1)&&!v_pausa) { retrace(); retrace(); }
       n=l->maximo-l->inicial;
       if (n>l->lista_al) {
         l->inicial++; pinta_listbox(l); v.volcar=1; }

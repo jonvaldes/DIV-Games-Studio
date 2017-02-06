@@ -104,9 +104,9 @@ void mouse_window(void);
 
 // Video (v.cpp)
 
-void set_paleta (void);
+void set_palette (void);
 void set_dac(void);
-void retrazo(void);
+void retrace(void);
 void svmode(void);
 void rvmode(void);
 void init_dump(void);
