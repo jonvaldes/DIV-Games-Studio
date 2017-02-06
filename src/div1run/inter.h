@@ -62,7 +62,7 @@ GLOBAL OSDEP_Joystick *divjoy;
 //  Prototipos
 //═════════════════════════════════════════════════════════════════════════════
 
-// I-ntérprete
+// I-nterpreter
 
 void error(word);
 void exer(int);
@@ -100,13 +100,13 @@ void draw_m7(int);
 int get_distx(int a, int d);
 int get_disty(int a, int d);
 
-// F-unciones
+// F-unctions
 
 void function(void);
 void create_palette(void);
 void init_rnd(int);
 
-// C-olisiones
+// C-ollisions
 
 void out_region(void);
 void graphic_info(void);
@@ -127,12 +127,12 @@ void memcpyb(byte *di, byte *si, int n);
 //void call(int);
 
 //═════════════════════════════════════════════════════════════════════════════
-// Constantes
+// Constants
 //═════════════════════════════════════════════════════════════════════════════
 
-#define max_exp 512         // Máximo número de elementos en una expresión
-#define long_pila 2048      // Longitud de la pila en ejecución
-#define imem_max 256 * 1024 // Memoria principal de la máquina destino
+#define max_exp 512         // Max number of elements in an expression
+#define long_pila 2048      // Length of the execution stack
+#define imem_max 256 * 1024 // Main memory of the destination machine
 
 #define swap(a, b)                                                                                                     \
 	{                                                                                                                  \
@@ -142,69 +142,69 @@ void memcpyb(byte *di, byte *si, int n);
 	}
 
 //═════════════════════════════════════════════════════════════════════════════
-// Mnemónico/Código/Operandos (Generación de código EML, "*" ­ "aún no usado")
+// Mnemonic/ID/Operands (Generation of EML code, "*" ­ "not used yet")
 //═════════════════════════════════════════════════════════════════════════════
 
-#define lnop 0  // *            No operación
-#define lcar 1  // valor        Carga una constante en pila
-#define lasi 2  //              Saca valor, offset y mete el valor en [offset]
-#define lori 3  //              Or lógico
-#define lxor 4  //              Xor, or exclusivo
-#define land 5  //              And lógico, operador sobre condiciones
-#define ligu 6  //              Igual, operador logico de comparación
-#define ldis 7  //              Distinto, true si los 2 valores son diferentes
-#define lmay 8  //              Mayor, comparación con signo
-#define lmen 9  //              Menor, idem
-#define lmei 10 //              Menor o igual
-#define lmai 11 //              Mayor o igual
-#define ladd 12 //              Suma dos constantes
-#define lsub 13 //              Resta, operación binaria
-#define lmul 14 //              Multiplicación
-#define ldiv 15 //              División de enteros
-#define lmod 16 //              Módulo, resto de la división
-#define lneg 17 //              Negación, cambia de signo una constante
-#define lptr 18 //              Pointer, saca offset y mete [offset]
-#define lnot 19 //              Negación binaria, bit a bit
-#define laid 20 //              Suma id a la constante de la pila
-#define lcid 21 //              Carga id en la pila
-#define lrng 22 // offset, len  Realiza una comparación de rango
-#define ljmp 23 // offset       Salta a una dirección de mem[]
-#define ljpf 24 // offset       Salta si un valor es falso a una dirección
-#define lfun 25 // código       Llamada a un proceso interno, ej. signal()
-#define lcal 26 // offset       Crea un nuevo proceso en el programa
-#define lret 27 // num_par      Auto-eliminación del proceso
-#define lasp 28 //              Desecha un valor apilado
-#define lfrm 29 // num_par      Detiene por este frame la ejecución del proceso
-#define lcbp 30 // num_par      Inicializa el puntero a los parámetros locales
-#define lcpa 31 //              Saca offset, lee parámetro [offset] y bp++
-#define ltyp 32 // bloque       Define el tipo de proceso actual (colisiones)
-#define lpri 33 // offset       Salta a la dirección, y carga var. privadas
-#define lcse 34 // offset       Si switch <> expresión, salta al offfset
-#define lcsr 35 // offset       Si switch no esta en el rango, salta al offset
-#define lshr 36 //              Shift right (binario)
-#define lshl 37 //              Shift left (binario)
-#define lipt 38 //              Incremento y pointer
-#define lpti 39 //              Pointer e incremento
-#define ldpt 40 //              Decremento y pointer
-#define lptd 41 //              Pointer y decremento
-#define lada 42 //              Add-asignación
-#define lsua 43 //              Sub-asignación
-#define lmua 44 //              Mul-asignación
-#define ldia 45 //              Div-asignación
-#define lmoa 46 //              Mod-asignación
-#define lana 47 //              And-asignación
-#define lora 48 //              Or-asignación
-#define lxoa 49 //              Xor-asignación
-#define lsra 50 //              Shr-asignación
-#define lsla 51 //              Shl-asignación
-#define lpar 52 // num_par_pri  Define el número de parámetros privados
-#define lrtf 53 // num_par      Auto-eliminación del proceso, devuelve un valor
-#define lclo 54 // offset       Crea un clon del proceso actual
-#define lfrf 55 // num_par      Pseudo-Frame (frame a un porcentaje, frame(100)==frame)
-#define limp 56 // offset text  Importa una DLL externa
-#define lext 57 // código       Llama a una función externa
-#define lchk 58 //              Comprueba la validez de un identificador
-#define ldbg 59 //              Invoca al debugger
+#define lnop 0  // *            NOP
+#define lcar 1  // value        Load a constant to the stack
+#define lasi 2  //              Takes value and offset from stack, saves value in [offset]
+#define lori 3  //              Logical OR
+#define lxor 4  //              XOR
+#define land 5  //              Logical AND
+#define ligu 6  //              Logical equals
+#define ldis 7  //              NOT equal
+#define lmay 8  //              Signed greater than
+#define lmen 9  //              Signed less than
+#define lmei 10 //              Less or equal than
+#define lmai 11 //              Greater or equal than
+#define ladd 12 //              Adds two constants
+#define lsub 13 //              Subtract, binary operation
+#define lmul 14 //              Multiplication
+#define ldiv 15 //              Integer division
+#define lmod 16 //              Modulo, division remainder
+#define lneg 17 //              Negation, changes a constant's sign 
+#define lptr 18 //              Pointer, takes offset from stack and pushes [offset]
+#define lnot 19 //              Bitwise negation
+#define laid 20 //              Adds id to the constant in the stack
+#define lcid 21 //              Pushes id into the stack
+#define lrng 22 // offset, len  Performs a range comparison
+#define ljmp 23 // offset       Jumps to a mem[] location
+#define ljpf 24 // offset       Jumps to a meomry address if value is false
+#define lfun 25 // id           Calls an internal process, for example: signal()
+#define lcal 26 // offset       Creates a new process in the program
+#define lret 27 // num_par      Self-elimination of the process
+#define lasp 28 //              Discards a value on the stack
+#define lfrm 29 // num_par      Halts this process' execution for one frame
+#define lcbp 30 // num_par      Initianlizes pointer to local parameters
+#define lcpa 31 //              Pops offset, reads [offset] parameter and bp++
+#define ltyp 32 // block        Sets type of current process (collisions)
+#define lpri 33 // offset       Jumps to address and loads private variables
+#define lcse 34 // offset       If switch <> expression, jump to offfset
+#define lcsr 35 // offset       If switch not in range, jump to offset
+#define lshr 36 //              Shift right (binary)
+#define lshl 37 //              Shift left (binary)
+#define lipt 38 //              Increment and pointer
+#define lpti 39 //              Pointer and increment
+#define ldpt 40 //              Decrement and pointer
+#define lptd 41 //              Pointer and decrement
+#define lada 42 //              Add-asignment
+#define lsua 43 //              Sub-asigment
+#define lmua 44 //              Mul-asigment
+#define ldia 45 //              Div-asigment
+#define lmoa 46 //              Mod-asigment
+#define lana 47 //              And-asigment
+#define lora 48 //              Or-asignment
+#define lxoa 49 //              Xor-asignment
+#define lsra 50 //              Shr-asignment
+#define lsla 51 //              Shl-asignment
+#define lpar 52 // num_par_pri  Defines number of private parameters
+#define lrtf 53 // num_par      Self-elimination of the process, returns a value
+#define lclo 54 // offset       Creates a clone of the current process
+#define lfrf 55 // num_par      Pseudo-Frame (frame to a porcentaje, frame(100)==frame)
+#define limp 56 // offset text  Imports an external DLL 
+#define lext 57 // código       Calls an external function
+#define lchk 58 //              Checks whether an id is valid
+#define ldbg 59 //              Invokes the debugger
 
 //═════════════════════════════════════════════════════════════════════════════
 // Variables globales de los programas
