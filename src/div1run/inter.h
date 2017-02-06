@@ -557,7 +557,7 @@ GLOBAL byte last_c1; // Ultimo color del font del sistema (en paleta cargada)
 // Control de nº máximo de frames
 //═════════════════════════════════════════════════════════════════════════════
 
-GLOBAL int reloj; // Límite de velocidad
+GLOBAL int global_clock; // Límite de velocidad
 GLOBAL int last_clock;
 GLOBAL double fclock, iclock;
 

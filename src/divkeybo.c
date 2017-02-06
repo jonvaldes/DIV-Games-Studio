@@ -126,14 +126,14 @@ void tecla_bios(void) {
 	// nothing to do
 }
 
-extern int reloj;
+extern int global_clock;
 
 //extern float m_x=0.0,m_y;
 void tecla(void) {
 mclock = SDL_GetTicks()/100;//(int)clock()/20000;
-reloj = SDL_GetTicks()/100;//(int)clock();
+global_clock = SDL_GetTicks()/100;//(int)clock();
 
-//printf("%d %d\n",mclock,reloj);
+//printf("%d %d\n",mclock,global_clock);
 
 //mclock++;
 #ifdef NOTYET

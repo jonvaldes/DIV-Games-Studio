@@ -95,15 +95,15 @@ static int n_clock=0, o_clock=0;
 
 int get_clock(void) {
 	
-//	reloj = SDL_GetTicks()/10;
-//		return reloj;
+//	global_clock = SDL_GetTicks()/10;
+//		return global_clock;
 		
 	n_clock=OSDEP_GetTicks();
-	reloj+=(n_clock-o_clock);
+	global_clock+=(n_clock-o_clock);
 	o_clock=n_clock;
 
-//reloj=SDL_GetTicks()/10;
-	return reloj;
+//global_clock=SDL_GetTicks()/10;
+	return global_clock;
 }
 
 //����������������������������������������������������������������������������

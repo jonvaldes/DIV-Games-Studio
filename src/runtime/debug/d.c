@@ -2095,7 +2095,7 @@ void e(int texto) {
 	return;
 #endif
   int smouse_x,smouse_y;
-  int clock_e=reloj,n;
+  int clock_e=global_clock,n;
   int ticks_e=ticks;
   int dr=dacout_r,dg=dacout_g,db=dacout_b;
 
@@ -2119,7 +2119,7 @@ void e(int texto) {
 
   mouse_graf=1; v_texto=(char *)text[texto]; dialogo(_err0);
   dacout_r=dr; dacout_g=dg; dacout_b=db;
-  reloj=clock_e;
+  global_clock=clock_e;
   ticks=ticks_e;
   set_mouse(smouse_x,smouse_y);
 }
@@ -2169,7 +2169,7 @@ void deb0(void) {
 
 void deb(void) {
   int smouse_x,smouse_y;
-  int clock_e=reloj;
+  int clock_e=global_clock;
   int ticks_e=ticks;
   int dr=dacout_r,dg=dacout_g,db=dacout_b;
 
@@ -2181,7 +2181,7 @@ void deb(void) {
   mouse_graf=1; dialogo(deb0);
 
   dacout_r=dr; dacout_g=dg; dacout_b=db;
-  reloj=clock_e;
+  global_clock=clock_e;
   ticks=ticks_e;
   set_mouse(smouse_x,smouse_y);
 }
@@ -2487,7 +2487,7 @@ void debug(void) {
   smouse_x=mouse->x; smouse_y=mouse->y;
   set_mouse(mouse_x,mouse_y);
 
-  clock_debug=reloj;
+  clock_debug=global_clock;
   ticks_debug=ticks;
 
   dr=dacout_r; dg=dacout_g; db=dacout_b;
@@ -2503,7 +2503,7 @@ void debug(void) {
 
   dacout_r=dr; dacout_g=dg; dacout_b=db;
 
-  reloj=clock_debug;
+  global_clock=clock_debug;
   ticks=ticks_debug;
 
   set_mouse(smouse_x,smouse_y);
@@ -3737,13 +3737,13 @@ void debug2(void) {
         break;
       }
       if (procesos) {
-        reloj=clock_debug;
+        global_clock=clock_debug;
         ticks=ticks_debug;
         set_mouse(smouse_x,smouse_y);
         dumps_skipped=0; skip_dump=0;
         dacout_r=dr; dacout_g=dg; dacout_b=db;
         debugger_step=1; frame_end(); frame_start(); debugger_step=0;
-        clock_debug=reloj;
+        clock_debug=global_clock;
         ticks_debug=ticks;
         smouse_x=mouse->x; smouse_y=mouse->y;
         set_mouse(mouse_x,mouse_y);
@@ -3834,13 +3834,13 @@ void debug2(void) {
       }
       if (procesos) {
         if (procesos_ejecutados()) {
-          reloj=clock_debug;
+          global_clock=clock_debug;
           ticks=ticks_debug;
           set_mouse(smouse_x,smouse_y);
           dumps_skipped=0; skip_dump=0;
           dacout_r=dr; dacout_g=dg; dacout_b=db;
           debugger_step=1; frame_end(); frame_start(); debugger_step=0;
-          clock_debug=reloj;
+          clock_debug=global_clock;
           ticks_debug=ticks;
           smouse_x=mouse->x; smouse_y=mouse->y;
           set_mouse(mouse_x,mouse_y);
@@ -3888,13 +3888,13 @@ void debug2(void) {
       }
       if (procesos) {
         if (procesos_ejecutados()) {
-          reloj=clock_debug;
+          global_clock=clock_debug;
           ticks=ticks_debug;
           set_mouse(smouse_x,smouse_y);
           dumps_skipped=0; skip_dump=0;
           dacout_r=dr; dacout_g=dg; dacout_b=db;
           debugger_step=1; frame_end(); frame_start(); debugger_step=0;
-          clock_debug=reloj;
+          clock_debug=global_clock;
           ticks_debug=ticks;
           smouse_x=mouse->x; smouse_y=mouse->y;
           set_mouse(mouse_x,mouse_y);
@@ -3931,13 +3931,13 @@ void debug2(void) {
       }
       if (procesos) {
         if (procesos_ejecutados()) {
-          reloj=clock_debug;
+          global_clock=clock_debug;
           ticks=ticks_debug;
           set_mouse(smouse_x,smouse_y);
           dumps_skipped=0; skip_dump=0;
           dacout_r=dr; dacout_g=dg; dacout_b=db;
           debugger_step=1; frame_end(); frame_start(); debugger_step=0;
-          clock_debug=reloj;
+          clock_debug=global_clock;
           ticks_debug=ticks;
           smouse_x=mouse->x; smouse_y=mouse->y;
           set_mouse(mouse_x,mouse_y);

@@ -829,7 +829,7 @@ void select_spray(int n) {
   }
 }
 
-extern int reloj;
+extern int global_clock;
 
 void init_rnd(int n, char * clave);
 byte rndb();
@@ -867,8 +867,8 @@ void edit_mode_8(void) {
             pincel_an*2+1,pincel_al*2+1); u++;
         }
 
-        m=pincel_an*pincel_al*(reloj-clock_spray);
-        clock_spray=reloj;
+        m=pincel_an*pincel_al*(global_clock-clock_spray);
+        clock_spray=global_clock;
 
         if (textura_color==NULL) {
           while (m--) {
@@ -895,7 +895,7 @@ void edit_mode_8(void) {
             }
           } color=col;
         }
-      } else clock_spray=reloj;
+      } else clock_spray=global_clock;
 
     } else clock_spray=-1;
 

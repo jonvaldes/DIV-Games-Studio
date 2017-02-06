@@ -123,7 +123,7 @@ CHANNEL          ends
                 extrn   _judas_mixpos:dword
                 extrn   _dma_address:dword
                 extrn   _judas_clipped:byte
-                extrn   _reloj:dword
+                extrn   _global_clock:dword
 
 judas_get_ds_:  mov     AX, DS
                 mov     _judas_ds, AX
@@ -759,7 +759,7 @@ judas_normal:   mov     _judas_mixpos, EAX
                 call    _judas_mixersys
 judas_donothing:popad
                 dec     mix_exec
-judas_gotohell: inc     _reloj
+judas_gotohell: inc     _global_clock
                 ret
 judas_wrap:     mov     _judas_mixpos, EAX
                 mov     EAX, EBX                        ;Mix to buffer end

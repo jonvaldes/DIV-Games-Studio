@@ -96,7 +96,7 @@ extern int superget;
 //      Global variables
 ///////////////////////////////////////////////////////////////////////////////
 
-//int * system_clock = (void*) 0x46c; // Reloj del sistema
+//int * system_clock = (void*) 0x46c; // System clock
 //int system_clock;
 
 char get_buffer[long_line]; // Shared buffer (except for calculator)
@@ -868,7 +868,7 @@ int IntIncr  = 65536;
 byte rndb(void);
 
 int old_clock,loop_count=0; 
-extern int reloj; // clock
+extern int global_clock; // clock
 
 ///////////////////////////////////////////////////////////////////////////////
 //      Environment

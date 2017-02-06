@@ -222,11 +222,11 @@ static int n_clock=0, o_clock=0;
 
 int get_clock(void) {
 /*	n_clock=SDL_GetTicks()/10;
-	reloj+=(n_clock-o_clock);
+	global_clock+=(n_clock-o_clock);
 	o_clock=n_clock;
 	*/
-	reloj=SDL_GetTicks()/10;
-	return reloj;
+	global_clock=SDL_GetTicks()/10;
+	return global_clock;
 	
 }
 
@@ -505,7 +505,7 @@ void load_map(void) {
       pila[sp]=next_map_code++;
 
     } else { fclose(es); pila[sp]=0; e(e100); }
-  } reloj=old_clock;
+  } global_clock=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -630,7 +630,7 @@ ptr+=1352; // Longitud cabecera fpg
 #endif
       
 pila[sp]=n;
-reloj=old_clock;
+global_clock=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -896,7 +896,7 @@ void load_fnt(void) {
       f_i[ifonts].alto=al;
       pila[sp]=ifonts;
     } else { fclose(es); pila[sp]=0; e(e118); }
-  } reloj=old_clock;
+  } global_clock=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -1358,7 +1358,7 @@ void save(void) {
   if (es==NULL) { pila[sp]=0; e(e123); return; }
   if (fwrite(&mem[offset],4,lon,es)!=lon) e(e124);
 
-  fclose(es); reloj=old_clock;
+  fclose(es); global_clock=old_clock;
 }
 
 #else         // Versión instalaciones.
@@ -1417,7 +1417,7 @@ void save(void) {
 //  if (fwrite(&mem[offset],4,lon,es)!=lon) e(e124);
   fwrite(&mem[offset],4,lon,es);
   fclose(es);
-  reloj=old_clock;
+  global_clock=old_clock;
 }
 
 #endif
@@ -1436,7 +1436,7 @@ void load(void) {
   fseek(es,0,SEEK_END); lon=ftell(es)/4; fseek(es,0,SEEK_SET);
   if (offset+lon>imem_max) { pila[sp]=0; e(e125); return; }
   if (fread(&mem[offset],4,lon,es)!=lon) e(e127); fclose(es);
-  reloj=old_clock;
+  global_clock=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -1519,7 +1519,7 @@ void load_pcm(void) {
 
       } else { fclose(f); pila[sp]=0; e(e128); return; }
   } else e(e128);
-  reloj=old_clock;
+  global_clock=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -1847,7 +1847,7 @@ void fade_off(void) {
   dacout_r=64; dacout_g=64; dacout_b=64; dacout_speed=8;
   while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
     set_palette(); set_dac(); //LoopSound();
-  } fading=0; sp++; reloj=old_clock;
+  } fading=0; sp++; global_clock=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -2233,7 +2233,7 @@ void _net_init_ipx(void) { // Ojo, emitir los errores, e(...)
 
   pila[sp]=net_init_ipx(s,j,t);
 
-  reloj=old_clock;
+  global_clock=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -2246,7 +2246,7 @@ void _net_init_modem(void) {
   sp-=6;
   pila[sp]=-1; // ¡¡¡OJO!!! **************************************************
 
-  reloj=old_clock;
+  global_clock=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -2259,7 +2259,7 @@ void _net_init_serial(void) {
   sp-=2;
   pila[sp]=-1; // ¡¡¡OJO!!! **************************************************
 
-  reloj=old_clock;
+  global_clock=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════

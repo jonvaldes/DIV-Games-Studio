@@ -818,7 +818,7 @@ GLOBAL byte last_c1;    // Ultimo color del font del sistema (en paleta cargada)
 // Frame limiter
 ///////////////////////////////////////////////////////////////////////////////
 
-GLOBAL int reloj;   // Speed limiter (framerate)
+GLOBAL int global_clock;   // Speed limiter (framerate)
 GLOBAL int ticks;
 
 GLOBAL int old_clock; // For time (timing) functions

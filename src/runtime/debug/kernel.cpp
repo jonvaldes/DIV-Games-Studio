@@ -56,8 +56,8 @@ case lrng:
 case ljmp:
   ip=mem[ip];
   #ifdef DEBUG
-    if (reloj>max_clock) {
-      v_function=-2; e(142); max_clock=max_process_time+reloj;
+    if (global_clock>max_clock) {
+      v_function=-2; e(142); max_clock=max_process_time+global_clock;
       if (call_to_debug) { process_stoped=id; return; }
     }
   #endif
@@ -65,8 +65,8 @@ case ljmp:
 case ljpf:
   if (pila[sp--]&1) ip++; else ip=mem[ip];
   #ifdef DEBUG
-    if (reloj>max_clock) {
-      v_function=-2; e(142); max_clock=max_process_time+reloj;
+    if (global_clock>max_clock) {
+      v_function=-2; e(142); max_clock=max_process_time+global_clock;
       if (call_to_debug) { process_stoped=id; return; }
     }
   #endif

@@ -4,7 +4,7 @@
 #include "divsb.h"
 #include "divmixer.hpp"
 
-int reloj=0;
+int global_clock=0;
 extern int safe;
 
 int SoundActive=0;

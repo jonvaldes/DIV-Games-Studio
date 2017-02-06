@@ -119,7 +119,7 @@ int  comprobar_fichero      (void);
 //═════════════════════════════════════════════════════════════════════════════
 
 int my_clock=0;
-extern int reloj;
+extern int global_clock;
 
 word *polys;
 int reg_polys;
@@ -3785,7 +3785,7 @@ void find_first_x2(int xi,int y,word *poligono) {
 void map_sortregions(int free_polys)
 {
   int i,j,npuntos;
-  int old_clock=reloj;
+  int old_clock=global_clock;
   int *regiones;
   int max_vertex=0;
   int xm,ym;
@@ -3876,7 +3876,7 @@ void map_sortregions(int free_polys)
 
   free(regiones);
   if (free_polys) free(polys);
-  my_clock=reloj-old_clock;
+  my_clock=global_clock-old_clock;
 
 }
 

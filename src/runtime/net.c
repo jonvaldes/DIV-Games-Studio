@@ -24,7 +24,7 @@ int inicializacion_red=0;
 
 net_game partida_red;
 
-extern int reloj;
+extern int global_clock;
 
 //=============================================================================
 //  Procedimientos internos
@@ -54,7 +54,7 @@ extern void arse(void);
 
 int net_init(int game_id)
 {
-  old_net_clock=reloj;
+  old_net_clock=global_clock;
   fprintf(stdout,"Starting NETPLAY\n");
   
   return(net_init_internet(game_id));
@@ -248,8 +248,8 @@ void _net_loop(void)
   //---------------------------------------------------------------------------
   net->servidor=partida_red.servidor;
   net->tonos=partida_red.game_id;
-  con_clock+=(reloj-old_net_clock);
-  old_net_clock=reloj;
+  con_clock+=(global_clock-old_net_clock);
+  old_net_clock=global_clock;
 //  if(con_clock>2)
 //  {
 //    con_clock-=2;

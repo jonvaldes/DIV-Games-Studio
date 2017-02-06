@@ -541,7 +541,7 @@ extern int alt_x;
 #define maxframes 30000
 
 void dump(byte *p) {
-//printf("%d %d %d\n",game_fps,fclock,iclock);//,reloj);
+//printf("%d %d %d\n",game_fps,fclock,iclock);//,global_clock);
 #ifndef __EMSCRIPTEN__
 if ((shift_status&4) && (shift_status&8) && key(_0)) {
 	recording = 1;

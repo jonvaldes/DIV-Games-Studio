@@ -1747,7 +1747,7 @@ void draw_texts(int n) { // E: texto[]
   do if (texto[n].font) {
 
     if (n==max_textos) {
-      if (reloj&64) break;
+      if (global_clock&64) break;
       else ptr=text[91];
     } else switch (texto[n].tipo) {
       case 0: ptr=(byte*)&mem[texto[n].ptr]; break;

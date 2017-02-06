@@ -568,7 +568,7 @@ init_rnd(dtime);
     (m7+n)->height=32;
   }
 
-  ticks=0; reloj=0; last_clock=0;
+  ticks=0; global_clock=0; last_clock=0;
   fclock=iclock=1000.0/24.0;
   game_fps=dfps=24;
   max_skips=0;

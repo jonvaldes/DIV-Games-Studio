@@ -67,7 +67,7 @@ char SoundFile[256];
 int  RecDevice[2] = { 1, 0 };
 int  ModButton=0;
 int  ModWindow=-1;
-extern int reloj;
+extern int global_clock;
 
 void errhlp0(void);
 
