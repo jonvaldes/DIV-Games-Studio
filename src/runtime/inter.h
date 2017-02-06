@@ -122,7 +122,7 @@ void find_color(byte,byte,byte);
 void scroll_simple(void);
 void scroll_parallax(void);
 void put_sprite(int file, int graph, int x, int y, int size, int angle, int flags, int reg,byte *,int,int);
-void pinta_sprite(void);
+void draw_sprite(void);
 void sp_normal(byte * p, int x, int y, int an, int al, int flags);
 void sp_cortado(byte * p, int x, int y, int an, int al, int flags);
 void sp_escalado(byte*,int,int,int,int,int,int,int,int);

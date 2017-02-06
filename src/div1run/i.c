@@ -1324,7 +1324,7 @@ emscripten_run_script (buf);
       } else if (m7ide) {
       	pinta_m7(m7ide-1); im7[m7ide-1].painted=1;
       } else if (ide) {
-      	pinta_sprite(); mem[ide+_Executed]=1;
+      	draw_sprite(); mem[ide+_Executed]=1;
       }
 
     } while (ide || m7ide || scrollide || otheride);

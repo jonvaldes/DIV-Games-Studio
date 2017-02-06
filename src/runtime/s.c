@@ -34,7 +34,7 @@ void sp_scang(byte * p,short n,byte * si,int an,int x0,int y0,int x1,int y1);
 void texc(byte * p, int x, int y, byte an, int al);
 void texn(byte * p, int x, int y, byte an, int al);
 void pinta_modo7(int n,int camara_x, int camara_y, int camara_z, int angulo);
-void pinta_sprite_m7(int n,int ide,int x,int y,int size,int ang);
+void draw_sprite_m7(int n,int ide,int x,int y,int size,int ang);
 
 //════════════════════════════════════════════════════════════════════════════
 // Definicion de constantes
@@ -103,7 +103,7 @@ static unsigned int mul_16(long a, long b)
 // Función para pintar los sprites de un scroll ordenados por Z
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprites_scroll(void) {
+void draw_sprites_scroll(void) {
   #ifdef DEBUG
   int oreloj;
   #endif
@@ -122,7 +122,7 @@ void pinta_sprites_scroll(void) {
           (mem[id+_Cnumber]==0 || (mem[id+_Cnumber]&(1<<snum))) &&
           !mem[id+_Painted] && mem[id+_Z]>max) { ide=id; max=mem[id+_Z]; }
     if (ide) {
-      pinta_sprite(); mem[ide+_Painted]=1;
+      draw_sprite(); mem[ide+_Painted]=1;
       #ifdef DEBUG
       process_paint(ide,get_ticks()-oreloj);
       #endif
@@ -211,7 +211,7 @@ void scroll_simple(void) {
   #ifdef DEBUG
   function_exec(252,get_ticks()-oreloj);
   #endif
-  pinta_sprites_scroll();
+  draw_sprites_scroll();
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -267,7 +267,7 @@ void scroll_parallax(void) {
   #ifdef DEBUG
   function_exec(252,get_ticks()-oreloj);
   #endif
-  pinta_sprites_scroll();
+  draw_sprites_scroll();
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -861,7 +861,7 @@ void put_sprite(int file,int graph,int x,int y,int angle,int size,int flags,int 
 //      La función que pinta los sprites de los procesos
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprite(void) { // Pinta un sprite (si se ve), según mem[ide+ ... ]
+void draw_sprite(void) { // Pinta un sprite (si se ve), según mem[ide+ ... ]
 
   int * ptr;
   byte * si;
@@ -1884,7 +1884,7 @@ void texc(byte * p, int x, int y, byte an, int al) {
 // Pinta la ventana de modo 7
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprites_m7(int n,int cx,int cy,float ang);
+void draw_sprites_m7(int n,int cx,int cy,float ang);
 
 void pinta_m7(int n) {
   int x,y;
@@ -1919,7 +1919,7 @@ void pinta_m7(int n) {
   function_exec(251,get_ticks()-oreloj);
   #endif
 
-  pinta_sprites_m7(n,x,-y,(float)((float)mem[id+_Angle]/radian));
+  draw_sprites_m7(n,x,-y,(float)((float)mem[id+_Angle]/radian));
 
 }
 
@@ -1927,7 +1927,7 @@ void pinta_m7(int n) {
 // Pinta los sprites del modo 7 (scroll snum)
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posición de la cámara
+void draw_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posición de la cámara
   int factor;
   #ifdef DEBUG
   int oreloj;
@@ -2002,7 +2002,7 @@ void pinta_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posició
         while (h<0) h+=4096;
         while (h>=4096) h-=4096;
 
-        pinta_sprite_m7(n,ide,anchura,altura,porcen,h);
+        draw_sprite_m7(n,ide,anchura,altura,porcen,h);
         #ifdef DEBUG
         process_paint(ide,get_ticks()-oreloj);
         #endif
@@ -2022,7 +2022,7 @@ void pinta_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posició
 // Pinta un sprite (mem[ide]) en el modo 7 (si está delante de la cámara)
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprite_m7(int n,int ide,int x,int y,int size,int ang) {
+void draw_sprite_m7(int n,int ide,int x,int y,int size,int ang) {
 
   int * ptr;
   byte * si;

@@ -28,7 +28,7 @@ void sp_scang(byte * p,short n,byte * si,int an,int x0,int y0,int x1,int y1);
 void texc(byte * p, int x, int y, byte an, int al);
 void texn(byte * p, int x, int y, byte an, int al);
 void pinta_modo7(int n,int camara_x, int camara_y, int camara_z, int angulo);
-void pinta_sprite_m7(int n,int ide,int x,int y,int size,int ang);
+void draw_sprite_m7(int n,int ide,int x,int y,int size,int ang);
 
 
 //════════════════════════════════════════════════════════════════════════════
@@ -49,7 +49,7 @@ tfast * fast;
 // Función para pintar los sprites de un scroll ordenados por Z
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprites_scroll(void) {
+void draw_sprites_scroll(void) {
   int old_ide=ide,max;
 
   if (post_process_scroll!=NULL) post_process_scroll();
@@ -60,7 +60,7 @@ void pinta_sprites_scroll(void) {
       if ((mem[id+_Status]==2 || mem[id+_Status]==4) && mem[id+_Ctype]==1 &&
           (mem[id+_Cnumber]==0 || (mem[id+_Cnumber]&(1<<snum))) &&
           !mem[id+_Painted] && mem[id+_Z]>max) { ide=id; max=mem[id+_Z]; }
-    if (ide) { pinta_sprite(); mem[ide+_Painted]=1; }
+    if (ide) { draw_sprite(); mem[ide+_Painted]=1; }
   } while (ide); ide=old_ide;
 }
 
@@ -138,7 +138,7 @@ void scroll_simple(void) {
     memcpy(di,si,iscroll[snum].an);
     di+=vga_an; 
     if (--b==0) si-=iscroll[snum].an*(iscroll[snum].al-1); else si+=iscroll[snum].an;
-  } pinta_sprites_scroll();
+  } draw_sprites_scroll();
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -187,7 +187,7 @@ void scroll_parallax(void) {
     di+=vga_an-iscroll[snum].an;
     if (--b1==0) si1-=iscroll[snum].an*iscroll[snum].al;
     if (--b2==0) si2-=iscroll[snum].an*iscroll[snum].al;
-  } pinta_sprites_scroll();
+  } draw_sprites_scroll();
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -781,7 +781,7 @@ void put_sprite(int file,int graph,int x,int y,int angle,int size,int flags,int 
 //      La función que pinta los sprites de los procesos
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprite(void) { // Pinta un sprite (si se ve), según mem[ide+ ... ]
+void draw_sprite(void) { // Pinta un sprite (si se ve), según mem[ide+ ... ]
 
   int * ptr;
   byte * si;
@@ -1500,7 +1500,7 @@ void texc(byte * p, int x, int y, byte an, int al) {
 // Pinta la ventana de modo 7
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprites_m7(int n,int cx,int cy,float ang);
+void draw_sprites_m7(int n,int cx,int cy,float ang);
 
 void pinta_m7(int n) {
   int x,y;
@@ -1528,7 +1528,7 @@ void pinta_m7(int n) {
 
   if (post_process_m7!=NULL) post_process_m7();
 
-  pinta_sprites_m7(n,x,-y,(float)((float)mem[id+_Angle]/radian));
+  draw_sprites_m7(n,x,-y,(float)((float)mem[id+_Angle]/radian));
 
 }
 
@@ -1536,7 +1536,7 @@ void pinta_m7(int n) {
 // Pinta los sprites del modo 7 (scroll snum)
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posición de la cámara
+void draw_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posición de la cámara
   int factor;
   int cx2=cx/4096,cy2=cy/4096,dx,dy;
   int ide,id,max,distmax,old_z;
@@ -1604,7 +1604,7 @@ void pinta_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posició
         while (h<0) h+=4096;
         while (h>=4096) h-=4096;
 
-        pinta_sprite_m7(n,ide,anchura,altura,porcen,h);
+        draw_sprite_m7(n,ide,anchura,altura,porcen,h);
 
         // *** Pixel blanco en la base del objeto ***
         // if (altura<vga_al && altura>=0 && anchura<vga_an && anchura>=0) {
@@ -1621,7 +1621,7 @@ void pinta_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posició
 // Pinta un sprite (mem[ide]) en el modo 7 (si está delante de la cámara)
 //════════════════════════════════════════════════════════════════════════════
 
-void pinta_sprite_m7(int n,int ide,int x,int y,int size,int ang) {
+void draw_sprite_m7(int n,int ide,int x,int y,int size,int ang) {
 
   int * ptr;
   byte * si;

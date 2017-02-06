@@ -1526,7 +1526,7 @@ void frame_end(void) {
 					im7[m7ide-1].painted=1;
 				} else if (ide) {
 					if (mem[ide+_Graph]>0 || mem[ide+_XGraph]>0) {
-						pinta_sprite();
+						draw_sprite();
 #ifdef DEBUG
 						process_paint(ide,get_ticks()-oreloj);
 #endif
@@ -1551,7 +1551,7 @@ void frame_end(void) {
 				ide=id; 
 
 				if (mem[ide+_Graph]>0 || mem[ide+_XGraph]>0) {
-					pinta_sprite();
+					draw_sprite();
 				}
 			}
 
