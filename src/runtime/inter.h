@@ -822,7 +822,7 @@ GLOBAL int reloj;   // Speed limiter (framerate)
 GLOBAL int ticks;
 
 GLOBAL int old_reloj; // For time (timing) functions
-GLOBAL int ultimo_reloj;
+GLOBAL int last_clock;
 GLOBAL double freloj,ireloj;
 GLOBAL int game_fps;
 

@@ -411,7 +411,7 @@ void inicializacion (void) {
     (m7+n)->focus=256;
   }
 
-  get_reloj(); ultimo_reloj=0; freloj=ireloj=5.5; max_saltos=0;
+  get_reloj(); last_clock=0; freloj=ireloj=5.5; max_saltos=0;
 	
 #ifdef __EMSCRIPTEN__
 max_saltos=2;
@@ -1100,14 +1100,14 @@ void frame_start(void) {
     } fading=0;
   }
 
-  for (max=0;max<10;max++) timer(max)+=get_reloj()-ultimo_reloj;
+  for (max=0;max<10;max++) timer(max)+=get_reloj()-last_clock;
 
-  if (get_reloj()>ultimo_reloj) {
-    ffps=(ffps*49.0+100.0/(float)(get_reloj()-ultimo_reloj))/50.0;
+  if (get_reloj()>last_clock) {
+    ffps=(ffps*49.0+100.0/(float)(get_reloj()-last_clock))/50.0;
     fps=(int)ffps;
   }
 
-  ultimo_reloj=get_reloj();
+  last_clock=get_reloj();
 
   //LoopSound();
 

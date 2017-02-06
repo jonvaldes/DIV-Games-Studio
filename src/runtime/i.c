@@ -568,7 +568,7 @@ init_rnd(dtime);
     (m7+n)->height=32;
   }
 
-  ticks=0; reloj=0; ultimo_reloj=0;
+  ticks=0; reloj=0; last_clock=0;
   freloj=ireloj=1000.0/24.0;
   game_fps=dfps=24;
   max_saltos=0;
@@ -1145,18 +1145,18 @@ void frame_start(void) {
     if(otimer[max]!=timer(max)) {
       mtimer[max]=timer(max)*10;
     }
-		mtimer[max]+=(get_reloj()-ultimo_reloj);
+		mtimer[max]+=(get_reloj()-last_clock);
     timer(max)=mtimer[max]/10;
     otimer[max]=timer(max);
   }
 
 
-	if (get_reloj()>ultimo_reloj) {
-		ffps=(ffps*9.0f+1000.0f/(float)(get_reloj()-ultimo_reloj))/10.0f;
+	if (get_reloj()>last_clock) {
+		ffps=(ffps*9.0f+1000.0f/(float)(get_reloj()-last_clock))/10.0f;
 		fps=(int)(ffps+0.5f);
 	}
 
-	ultimo_reloj=get_reloj();
+	last_clock=get_reloj();
 
 #ifdef DEBUG
 	if (overall_reloj) {
