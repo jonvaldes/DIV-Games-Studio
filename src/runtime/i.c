@@ -571,9 +571,9 @@ init_rnd(dtime);
   ticks=0; reloj=0; last_clock=0;
   fclock=iclock=1000.0/24.0;
   game_fps=dfps=24;
-  max_saltos=0;
+  max_skips=0;
 #ifdef __EMSCRIPTEN__
-  max_saltos=0;
+  max_skips=0;
 #endif
 
 
@@ -585,7 +585,7 @@ init_rnd(dtime);
   debugger_step=0; call_to_debug=0; process_stoped=0;
   #endif
 
-  saltar_volcado=0; volcados_saltados=0;
+  skip_dump=0; dumps_skipped=0;
 
   init_sin_cos(); // Tablas de seno y coseno para el modo7
 
@@ -1171,14 +1171,14 @@ void frame_start(void) {
 #endif
 
 	if (get_clock()>(fclock+iclock/3)) { // Permite comerse hasta un tercio del sgte frame
-		if (volcados_saltados<max_saltos) {
-			volcados_saltados++;
-			saltar_volcado=1;
+		if (dumps_skipped<max_skips) {
+			dumps_skipped++;
+			skip_dump=1;
 			fclock+=iclock;
 		} else {
 			fclock=(float)get_clock()+iclock;
-			volcados_saltados=0;
-			saltar_volcado=0;
+			dumps_skipped=0;
+			skip_dump=0;
 		}
 	} else {
 		n=0; 
@@ -1201,8 +1201,8 @@ void frame_start(void) {
 			retrace();
 		} while (get_clock()<(int)fclock);
 #endif
-		volcados_saltados=0;
-		saltar_volcado=0;
+		dumps_skipped=0;
+		skip_dump=0;
 		fclock+=iclock;
 	}
 
@@ -1276,7 +1276,7 @@ void frame_end(void) {
 #endif
 
 #ifdef __EMSCRIPTEN__
-	sprintf (buf, "$('#fps').text(\"FPS: %d/%d (max frameskip: %d)\");", fps,dfps,max_saltos);
+	sprintf (buf, "$('#fps').text(\"FPS: %d/%d (max frameskip: %d)\");", fps,dfps,max_skips);
 	emscripten_run_script (buf);
 #endif
 
@@ -1331,7 +1331,7 @@ void frame_end(void) {
 		set_mouse(mouse->x,mouse->y);
 #endif
 
-	if (!saltar_volcado) {
+	if (!skip_dump) {
 
 	// *** OJO *** Restaura las zonas de copia fuera del scroll y del modo 7
 
@@ -2063,14 +2063,14 @@ if(true) {
 
 	vga_an=320; vga_al=200; 
 	iclock=1000.0/24.0; // 24 fps
-	max_saltos = 0; // 0 skips
+	max_skips = 0; // 0 skips
 
 #ifdef __EMSCRIPTEN__
 
 //jschar=emscripten_run_script_string("$('#exename').text()");
 
 //emscripten_wget (jschar, "exe");//, loadmarvin, errormarvin);
-	max_saltos = 0;
+	max_skips = 0;
 
 
 	f=fopen(HTML_EXE,"rb");

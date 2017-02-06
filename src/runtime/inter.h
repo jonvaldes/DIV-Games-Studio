@@ -826,10 +826,10 @@ GLOBAL int last_clock;
 GLOBAL double fclock,iclock;
 GLOBAL int game_fps;
 
-GLOBAL int max_saltos;                  // Ma number of skipped frames
+GLOBAL int max_skips;                  // Ma number of skipped frames
 GLOBAL int dfps;
 GLOBAL SDL_Joystick * divjoy;
-GLOBAL int saltar_volcado,volcados_saltados;
+GLOBAL int skip_dump,dumps_skipped;
 
 //////////////////////////////////////////////////////////////////////////////
 // Collision detection buffer

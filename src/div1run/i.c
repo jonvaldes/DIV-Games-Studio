@@ -208,14 +208,14 @@ int main(int argc,char * argv[]) {
 
   vga_an=320; vga_al=200;
     iclock=100.0/24.0;
-    max_saltos = 0;
+    max_skips = 0;
     game_fps=dfps=24;
 
   if ((mem=(int*)malloc(4*imem_max))!=NULL){
     memset(mem,0,4*imem_max);
 
 #ifdef __EMSCRIPTEN__
-max_saltos=2;
+max_skips=2;
 
 //jschar=emscripten_run_script_string("$('#exename').text()");
 
@@ -411,10 +411,10 @@ void inicializacion (void) {
     (m7+n)->focus=256;
   }
 
-  get_clock(); last_clock=0; fclock=iclock=5.5; max_saltos=0;
+  get_clock(); last_clock=0; fclock=iclock=5.5; max_skips=0;
 	
 #ifdef __EMSCRIPTEN__
-max_saltos=2;
+max_skips=2;
 #endif
 
 	game_fps=24;
@@ -425,7 +425,7 @@ max_saltos=2;
   debugger_step=0; call_to_debug=0; process_stoped=0;
   #endif
 
-  saltar_volcado=0; volcados_saltados=0;
+  skip_dump=0; dumps_skipped=0;
 
   init_sin_cos(); // Tablas de seno y coseno para el modo7
 
@@ -1116,19 +1116,19 @@ void frame_start(void) {
   tecla();
 
   if (get_clock()>(fclock+iclock/3)) { // Permite comerse hasta un tercio del sgte frame
-    if (volcados_saltados<max_saltos) {
-      volcados_saltados++;
-      saltar_volcado=1;
+    if (dumps_skipped<max_skips) {
+      dumps_skipped++;
+      skip_dump=1;
       fclock+=iclock;
     } else {
       fclock=(float)get_clock()+iclock;
-      volcados_saltados=0;
-      saltar_volcado=0;
+      dumps_skipped=0;
+      skip_dump=0;
     }
   } else {
     do { } while (get_clock()<(int)fclock); // Espera para no dar más de "n" fps
-    volcados_saltados=0;
-    saltar_volcado=0;
+    dumps_skipped=0;
+    skip_dump=0;
     fclock+=iclock;
   }
 
@@ -1209,7 +1209,7 @@ char buf[255];
   // DLL_0 Lee los puntos de ruptura (bien sea de autoload o de import)
 
 #ifdef __EMSCRIPTEN__
-sprintf (buf, "$('#fps').text(\"FPS: %d/%d (max frameskip: %d)\");", fps,dfps,max_saltos);
+sprintf (buf, "$('#fps').text(\"FPS: %d/%d (max frameskip: %d)\");", fps,dfps,max_skips);
 emscripten_run_script (buf);
 #endif
   if (!dll_loaded) {
@@ -1257,7 +1257,7 @@ emscripten_run_script (buf);
   // Si el usuario modificó mouse.x o mouse.y, posiciona el ratón debidamente
   if (_mouse_x!=mouse->x || _mouse_y!=mouse->y) set_mouse(mouse->x,mouse->y);
 
-  if (!saltar_volcado) {
+  if (!skip_dump) {
 //printf("Restore type: %d DUmp type: %d\n",restore_type,dump_type);
     // *** OJO *** Restaura las zonas de copia fuera del scroll y del modo 7
 

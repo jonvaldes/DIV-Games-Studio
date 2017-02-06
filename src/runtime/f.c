@@ -2320,15 +2320,15 @@ void is_playing_song(void) {
 void mainloop(void);
 
 void set_fps(void) {
-  max_saltos=pila[sp--];
-  if (max_saltos<0) max_saltos=0;
-  if (max_saltos>10) max_saltos=10;
+  max_skips=pila[sp--];
+  if (max_skips<0) max_skips=0;
+  if (max_skips>10) max_skips=10;
   if (pila[sp]<4) pila[sp]=4;
   if (pila[sp]>999) pila[sp]=999;
   dfps = pila[sp];
 #ifdef __EMSCRIPTEN__
-//if(max_saltos<2)
-//	max_saltos=2;
+//if(max_skips<2)
+//	max_skips=2;
 //  emscripten_cancel_main_loop();
 //  emscripten_set_main_loop(mainloop,dfps,0);
 #endif

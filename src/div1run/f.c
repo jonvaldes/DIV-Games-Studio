@@ -1565,15 +1565,15 @@ void change_sound(void) {
 //════════════════════════════════════════════════════════════════════════════
 
 void set_fps(void) {
-  max_saltos=pila[sp--];
+  max_skips=pila[sp--];
 #ifdef __EMSCRIPTEN__
-	max_saltos=2;
+	max_skips=2;
 #endif
-  if (max_saltos<0) max_saltos=0;
-  if (max_saltos>10) max_saltos=10;
+  if (max_skips<0) max_skips=0;
+  if (max_skips>10) max_skips=10;
   if (pila[sp]<4) pila[sp]=4;
   if (pila[sp]>100) pila[sp]=100;
-  printf("setting fps(%d,%d)\n",pila[sp],max_saltos);
+  printf("setting fps(%d,%d)\n",pila[sp],max_skips);
   dfps = pila[sp];
   iclock=100.0/(double)pila[sp];
 }

@@ -561,9 +561,9 @@ GLOBAL int reloj; // Límite de velocidad
 GLOBAL int last_clock;
 GLOBAL double fclock, iclock;
 
-GLOBAL int max_saltos; // Máximo nº de volcados saltados
+GLOBAL int max_skips; // Máximo nº de volcados saltados
 GLOBAL int dfps;
-GLOBAL int saltar_volcado, volcados_saltados;
+GLOBAL int skip_dump, dumps_skipped;
 
 //═════════════════════════════════════════════════════════════════════════════
 // Buffer de detección de colisiones
