@@ -211,7 +211,7 @@ void select_zoom(void);
 ///////////////////////////////////////////////////////////////////////////////
 
 void sp_normal (byte*,int,int,int,int,int,int,int);
-void sp_rotado (byte*,int,int,int,int,int,int,int,float,float);
+void sp_rotated (byte*,int,int,int,int,int,int,int,float,float);
 void sp_size (int*,int*,int*,int*,int,int,float,float);
 void invierte_hor(byte*,int,int);
 void invierte_ver(byte*,int,int);

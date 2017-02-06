@@ -8,7 +8,7 @@
 //様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
 int  comprobar_colisiones(int i,int bloque,int scroll);
 void test_collision(byte * buffer, int * ptr, int x, int y, int xg, int yg, int angle, int size, int flags);
-void sp_rotado_p(byte * si, int an, int al, int flags);
+void sp_rotated_p(byte * si, int an, int al, int flags);
 void test_normal(byte * p, int x, int y, int an, int al, int flags);
 void test_cortado(byte * p, int x, int y, int an, int al, int flags);
 void test_escalado(byte * old_si, int x, int y, int an, int al, int xg, int yg,int size, int flags);
@@ -434,17 +434,17 @@ void put_collision(byte * buffer, int * ptr, int x, int y, int xg, int yg, int a
 
   if (angle) {
     for (x=0;x<8;x+=2) { p[x]-=ix; p[x+1]-=iy; }
-    sp_rotado_p(si,an,al,flags);
+    sp_rotated_p(si,an,al,flags);
   } else if (size!=100) {
     x-=ix; y-=iy;
-    sp_escalado(si,x,y,an,al,xg,yg,size,flags);
+    sp_scaled(si,x,y,an,al,xg,yg,size,flags);
   } else {
     if (flags&1) xg=an-1-xg; x-=xg+ix;
     if (flags&2) yg=al-1-yg; y-=yg+iy;
     if (x>=clipx0 && x+an<=clipx1 && y>=clipy0 && y+al<=clipy1) // Pinta sprite sin cortar
       sp_normal(si,x,y,an,al,flags);
     else if (x<clipx1 && y<clipy1 && x+an>clipx0 && y+al>clipy0) // Pinta sprite cortado
-      sp_cortado(si,x,y,an,al,flags);
+      sp_clipped(si,x,y,an,al,flags);
   }
 
   copia=_copia;
@@ -458,7 +458,7 @@ void put_collision(byte * buffer, int * ptr, int x, int y, int xg, int yg, int a
 // Sprite - rotado [escalado] [cortado] [espejado] [ghost]
 //様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
 
-void sp_rotado_p(byte * si, int an, int al, int flags) {
+void sp_rotated_p(byte * si, int an, int al, int flags) {
 
   int h,hmin,hmax; // Altura minima y maxima
   int n,l0,l1;   // Lado 0 y lado 1 (indices p[])

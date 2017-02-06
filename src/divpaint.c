@@ -2905,7 +2905,7 @@ void mover(byte * sp, int an, int al) {
           _an=an; _al=al; _x=_coord_x; _y=_coord_y;
           sp_size(&_x,&_y,&_an,&_al,xg,yg,ang,size);
           if (save_undo(_x,_y,_an,_al))
-            sp_rotado(sp,_coord_x,_coord_y,an,al,xg,yg,block*2+ghost,ang,size);
+            sp_rotated(sp,_coord_x,_coord_y,an,al,xg,yg,block*2+ghost,ang,size);
           else modo=110;
         }
       }

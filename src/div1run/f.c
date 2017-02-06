@@ -1160,7 +1160,7 @@ void map_block_copy(void) {
       if (x>=clipx0 && x+an<=clipx1 && y>=clipy0 && y+al<=clipy1) // Pinta sprite sin cortar
         sp_normal(si,x,y,an,al,0);
       else if (x<clipx1 && y<clipy1 && x+an>clipx0 && y+al>clipy0) // Pinta sprite cortado
-        sp_cortado(si,x,y,an,al,0);
+        sp_clipped(si,x,y,an,al,0);
 
       no: copia=_copia; vga_an=_vga_an; vga_al=_vga_al;
     } else e(e121);

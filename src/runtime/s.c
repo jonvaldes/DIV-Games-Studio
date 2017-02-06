@@ -839,16 +839,16 @@ void put_sprite(int file,int graph,int x,int y,int angle,int size,int flags,int 
     } else { xg=*((word*)ptr+32); yg=*((word*)ptr+33); }
 
     if (angle) {
-      sp_rotado(si,x,y,an,al,xg,yg,angle,size,flags);
+      sp_rotated(si,x,y,an,al,xg,yg,angle,size,flags);
     } else if (size!=100) {
-      sp_escalado(si,x,y,an,al,xg,yg,size,flags);
+      sp_scaled(si,x,y,an,al,xg,yg,size,flags);
     } else {
       if (flags&1) xg=an-1-xg; x-=xg;
       if (flags&2) yg=al-1-yg; y-=yg;
       if (x>=clipx0 && x+an<=clipx1 && y>=clipy0 && y+al<=clipy1) // Pinta sprite sin cortar
         sp_normal(si,x,y,an,al,flags);
       else if (x<clipx1 && y<clipy1 && x+an>clipx0 && y+al>clipy0) // Pinta sprite cortado
-        sp_cortado(si,x,y,an,al,flags);
+        sp_clipped(si,x,y,an,al,flags);
       x0s=x; x1s=x+an-1; y0s=y; y1s=y+al-1;
     }
 
@@ -914,10 +914,10 @@ void draw_sprite(void) { // Pinta un sprite (si se ve), según mem[ide+ ... ]
     if (putsprite!=NULL) {
       putsprite(si,x,y,an,al,xg,yg,mem[ide+_Angle],mem[ide+_Size],mem[ide+_Flags]);
     } else if (mem[ide+_Angle] && mem[ide+_XGraph]<=0) {
-      sp_rotado(si,x,y,an,al,xg,yg,mem[ide+_Angle],mem[ide+_Size],mem[ide+_Flags]);
+      sp_rotated(si,x,y,an,al,xg,yg,mem[ide+_Angle],mem[ide+_Size],mem[ide+_Flags]);
       save_region();
     } else if (mem[ide+_Size]!=100) {
-      sp_escalado(si,x,y,an,al,xg,yg,mem[ide+_Size],mem[ide+_Flags]);
+      sp_scaled(si,x,y,an,al,xg,yg,mem[ide+_Size],mem[ide+_Flags]);
       save_region();
     } else {
       if (mem[ide+_Flags]&1) xg=an-1-xg; x-=xg;
@@ -925,7 +925,7 @@ void draw_sprite(void) { // Pinta un sprite (si se ve), según mem[ide+ ... ]
       if (x>=clipx0 && x+an<=clipx1 && y>=clipy0 && y+al<=clipy1) // Pinta sprite sin cortar
         sp_normal(si,x,y,an,al,mem[ide+_Flags]);
       else if (x<clipx1 && y<clipy1 && x+an>clipx0 && y+al>clipy0) // Pinta sprite cortado
-        sp_cortado(si,x,y,an,al,mem[ide+_Flags]);
+        sp_clipped(si,x,y,an,al,mem[ide+_Flags]);
       x0s=x; x1s=x+an-1; y0s=y; y1s=y+al-1; save_region();
     }
   }
@@ -1020,7 +1020,7 @@ void sp_normal(byte * p, int x, int y, int an, int al, int flags) {
 // Sprite - cortado [espejado] [ghost]
 //════════════════════════════════════════════════════════════════════════════
 
-void sp_cortado(byte * p, int x, int y, int an, int al, int flags) {
+void sp_clipped(byte * p, int x, int y, int an, int al, int flags) {
 
   byte *q=copia+y*vga_an+x;
   int salta_x, long_x, resto_x;
@@ -1114,7 +1114,7 @@ void sp_cortado(byte * p, int x, int y, int an, int al, int flags) {
 // Sprite - escalado [cortado] [espejado] [ghost]
 //════════════════════════════════════════════════════════════════════════════
 
-void sp_escalado(byte * old_si, int x, int y, int an, int al, int xg, int yg,
+void sp_scaled(byte * old_si, int x, int y, int an, int al, int xg, int yg,
                  int size, int flags) {
 
   int salta_x, long_x, resto_x; // Referidas a pantalla
@@ -1175,7 +1175,7 @@ void sp_escalado(byte * old_si, int x, int y, int an, int al, int xg, int yg,
 // Sprite - rotado [escalado] [cortado] [espejado] [ghost]
 //════════════════════════════════════════════════════════════════════════════
 
-void sp_rotado(byte * si, int x, int y, int an, int al, int xg, int yg,
+void sp_rotated(byte * si, int x, int y, int an, int al, int xg, int yg,
                int ang, int size, int flags) {
 
   float d0,d1,d2,d3;
@@ -2057,7 +2057,7 @@ void draw_sprite_m7(int n,int ide,int x,int y,int size,int ang) {
       xg=ptr[13]/2; yg=ptr[14]-1;
     } else { xg=*((word*)ptr+32); yg=*((word*)ptr+33); }
 
-    sp_escalado(si,x,y,an,al,xg,yg,size,mem[ide+_Flags]);
+    sp_scaled(si,x,y,an,al,xg,yg,size,mem[ide+_Flags]);
 
   }
 }

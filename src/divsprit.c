@@ -11,7 +11,7 @@ void sp_normal_mask( byte * p, int x, int y, int an, int al,
 
 void sp_scanc(byte * p,short n,short m,short o,byte * si,int an,int x0,int y0,int x1,int y1,int flags);
 
-void sp_rotado( byte * si, int x, int y, int an, int al, int xg, int yg,
+void sp_rotated( byte * si, int x, int y, int an, int al, int xg, int yg,
                 int flags, float a, float s);
 
 void sp_scan(byte * p,short n,byte * si,int an,int x0,int y0,int x1,int y1,int flags);
@@ -170,7 +170,7 @@ void sp_normal_mask( byte * p, int x, int y, int an, int al,
 
 byte * ptrmap;
 
-void sp_rotado( byte * si, int x, int y, int an, int al, int xg, int yg,
+void sp_rotated( byte * si, int x, int y, int an, int al, int xg, int yg,
                 int flags, float a, float s) {
 
   float d0,d1,d2,d3;
