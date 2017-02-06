@@ -391,7 +391,7 @@ oldhatval = hatval;
 			}
 //			EndSound();
 //			soundstopped=1;
-//				volcado_parcial(0,0,vga_an-1,vga_al-1);
+//				partial_dump(0,0,vga_an-1,vga_al-1);
 //				SDL_PauseAudio(0);
 			
         }

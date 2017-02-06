@@ -224,9 +224,9 @@ void retrazo(void);
 void svmode(void);
 void rvmode(void);
 void set_dac(byte*);
-void init_volcado(void);
-void volcado_parcial(int,int,int,int);
-void volcado(byte *);
+void init_dump(void);
+void partial_dump(int,int,int,int);
+void dump(byte *);
 
 ///////////////////////////////////////////////////////////////////////////////
 //      Functions exported by DIVMOUSE (divmouse.c)

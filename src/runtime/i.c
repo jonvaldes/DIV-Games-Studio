@@ -606,7 +606,7 @@ init_rnd(dtime);
   busca_packfile();
   #endif
 
-  init_volcado();
+  init_dump();
 
   // DLL_3 Exportaci�n de funciones y variables (para utilizarlas en las DLL)
 #ifdef DIVDLL
@@ -1111,14 +1111,14 @@ void frame_start(void) {
 				if (buffer_to_video!=NULL) 
 					buffer_to_video(); 
 				else
-					volcado((byte*)copia);
+					dump((byte*)copia);
 			} while (!ss_exit);
 			
 			if (ss_end!=NULL) 
 				ss_end();
 
 			memcpy(copia,copia2,vga_an*vga_al);
-			volcado_parcial(0,0,vga_an,vga_al);
+			partial_dump(0,0,vga_an,vga_al);
 			ss_time_counter=get_reloj()+ss_time;
 		}
 	}
@@ -1625,7 +1625,7 @@ void frame_end(void) {
 					} else {
 
 					  if (old_dump_type) {
-						volcado_completo=1; volcado((byte*)copia);
+						volcado_completo=1; dump((byte*)copia);
 					  } else {
 
 							volcado_completo=0;
@@ -1633,42 +1633,42 @@ void frame_end(void) {
 							// A�ade los volcados de este frame a los restore del anterior
 
 							for (n=id_start; n<=id_end; n+=iloc_len)
-								if (mem[n+_x1]!=-1) volcado_parcial(mem[n+_x0],mem[n+_y0],mem[n+_x1]-mem[n+_x0]+1,mem[n+_y1]-mem[n+_y0]+1);
+								if (mem[n+_x1]!=-1) partial_dump(mem[n+_x0],mem[n+_y0],mem[n+_x1]-mem[n+_x0]+1,mem[n+_y1]-mem[n+_y0]+1);
 									for (n=0;n<10;n++) {
 										if (im7[n].on)
-											volcado_parcial(im7[n].x,im7[n].y,im7[n].an,im7[n].al);
+											partial_dump(im7[n].x,im7[n].y,im7[n].an,im7[n].al);
 										
-										if (iscroll[n].on) volcado_parcial(iscroll[n].x,iscroll[n].y,iscroll[n].an,iscroll[n].al);
+										if (iscroll[n].on) partial_dump(iscroll[n].x,iscroll[n].y,iscroll[n].an,iscroll[n].al);
 									}
 
 							if (mouse_x1!=-1)
-								volcado_parcial(mouse_x0,mouse_y0,mouse_x1-mouse_x0+1,mouse_y1-mouse_y0+1);
+								partial_dump(mouse_x0,mouse_y0,mouse_x1-mouse_x0+1,mouse_y1-mouse_y0+1);
 
 							for (n=0;n<max_textos;n++)
 								if (texto[n].font && texto[n].an)
-									volcado_parcial(texto[n].x0,texto[n].y0,texto[n].an,texto[n].al);
+									partial_dump(texto[n].x0,texto[n].y0,texto[n].an,texto[n].al);
 
 							// Realiza un volcado parcial
 
-							volcado((byte*)copia);
+							dump((byte*)copia);
 
 						}
 
 						if (dump_type==0 || restore_type==0) { // Fija los restore para el siguiente frame
 
 							for (n=id_start; n<=id_end; n+=iloc_len)
-								if (mem[n+_x1]!=-1) volcado_parcial(mem[n+_x0],mem[n+_y0],mem[n+_x1]-mem[n+_x0]+1,mem[n+_y1]-mem[n+_y0]+1);
+								if (mem[n+_x1]!=-1) partial_dump(mem[n+_x0],mem[n+_y0],mem[n+_x1]-mem[n+_x0]+1,mem[n+_y1]-mem[n+_y0]+1);
 									for (n=0;n<10;n++) {
 										if (im7[n].on)
-											volcado_parcial(im7[n].x,im7[n].y,im7[n].an,im7[n].al);
+											partial_dump(im7[n].x,im7[n].y,im7[n].an,im7[n].al);
 										
 										if (iscroll[n].on)
-											volcado_parcial(iscroll[n].x,iscroll[n].y,iscroll[n].an,iscroll[n].al);
+											partial_dump(iscroll[n].x,iscroll[n].y,iscroll[n].an,iscroll[n].al);
 									}
-							if (mouse_x1!=-1) volcado_parcial(mouse_x0,mouse_y0,mouse_x1-mouse_x0+1,mouse_y1-mouse_y0+1);
+							if (mouse_x1!=-1) partial_dump(mouse_x0,mouse_y0,mouse_x1-mouse_x0+1,mouse_y1-mouse_y0+1);
 							for (n=0;n<max_textos+1;n++)
 								if (texto[n].font && texto[n].an)
-									volcado_parcial(texto[n].x0,texto[n].y0,texto[n].an,texto[n].al);
+									partial_dump(texto[n].x0,texto[n].y0,texto[n].an,texto[n].al);
 						}
 
 					}

@@ -122,7 +122,7 @@ void printlocal(void) {
 
 
 
-void dump(int size) {
+void dump_asm(int size) {
 	int i=mem[1]-1,itmp=0;
 	int sp=0,spp=0;
 	

@@ -519,7 +519,7 @@ while(SDL_PollEvent(&event) )
 					EndSound();
 					soundstopped=1;
 				}
-//				volcado_parcial(0,0,vga_an-1,vga_al-1);
+//				partial_dump(0,0,vga_an-1,vga_al-1);
 //				SDL_PauseAudio(0);
 				
             }
@@ -793,7 +793,7 @@ while(SDL_PollEvent(&event) )
 		}
 		actualiza_caja(0,0,vga_an,vga_al);
 //		volcado_completo=1;
-		volcado(copia);
+		dump(copia);
 		InitSound();
 		soundstopped=0;
 	}

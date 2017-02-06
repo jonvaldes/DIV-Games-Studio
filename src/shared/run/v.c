@@ -540,7 +540,7 @@ extern int alt_x;
 
 #define maxframes 30000
 
-void volcado(byte *p) {
+void dump(byte *p) {
 //printf("%d %d %d\n",game_fps,freloj,ireloj);//,reloj);
 #ifndef __EMSCRIPTEN__
 if ((shift_status&4) && (shift_status&8) && key(_0)) {
@@ -613,7 +613,7 @@ volcadosdl(p);
   }
 #endif
   if (fli_palette_update) { fli_palette_update=0; set_dac2(); }
-  init_volcado();
+  init_dump();
 }
 
 //�����������������������������������������������������������������������������
@@ -944,14 +944,14 @@ void vgacpy(byte * q, byte * p, int n) {
 //      Selecciona una ventana para su posterior volcado
 //�����������������������������������������������������������������������������
 
-void init_volcado(void) {
+void init_dump(void) {
 #ifndef DROID
 	 memset(&scan[0],0,MAX_YRES*sizeof(short)); 
 #endif
  volcado_completo=0; 
 }
 
-void volcado_parcial(int x,int y,int an,int al) {
+void partial_dump(int x,int y,int an,int al) {
   int ymax,xmax,n,d1,d2,x2;
 
   if (an==vga_an && al==vga_al && x==0 && y==0) { volcado_completo=1; return; }

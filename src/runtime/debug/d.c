@@ -540,7 +540,7 @@ void dialogo(voidReturnType init_handler) {
       explode(x,y,an,al);
 
       wvolcado(copia,vga_an,vga_al,ptr,x,y,an,al,0);
-      volcado_parcial(x,y,an,al);
+      partial_dump(x,y,an,al);
       do { dread_mouse(); } while(mouse_b&1);
       entorno_dialogo();
 
@@ -725,7 +725,7 @@ void cierra_ventana(void) {
   if (big) wput(v.ptr,v.an/2,v.al/2,v.an/2-9,2,-45);
   else wput(v.ptr,v.an,v.al,v.an-9,2,-45);
   vuelca_ventana(0);
-  volcado_parcial(v.x,v.y,v.an,v.al);
+  partial_dump(v.x,v.y,v.an,v.al);
   if (!no_volcar_nada) {
     volcado_copia();
   } free(v.ptr);
@@ -807,7 +807,7 @@ void vuelca_ventana(int m) {
 
   }
 
-  volcado_parcial(x,y,an,al);
+  partial_dump(x,y,an,al);
 }
 
 //═════════════════════════════════════════════════════════════════════════════
@@ -1262,7 +1262,7 @@ void explode(int x,int y,int an,int al) {
     aan=(an*n)/10; aal=(al*n)/10;
     xx=x+an/2-aan/2; yy=y+al/2-aal/2;
     wrectangulo(copia,vga_an,vga_al,c4,xx,yy,aan,aal);
-    volcado_parcial(xx,yy,aan,aal);
+    partial_dump(xx,yy,aan,aal);
     retrazo();
     volcado_copia();
     actualiza_caja(xx,yy,aan,1); actualiza_caja(xx,yy,1,aal);
@@ -1279,7 +1279,7 @@ void implode(int x,int y,int an,int al) {
     aal=(al*n)/10; if (!aal) aal=1;
     xx=x+an/2-aan/2; yy=y+al/2-aal/2;
     wrectangulo(copia,vga_an,vga_al,c4,xx,yy,aan,aal);
-    volcado_parcial(xx,yy,aan,aal);
+    partial_dump(xx,yy,aan,aal);
     volcado_copia();
     actualiza_caja(xx,yy,aan,aal);
     retrazo();
@@ -1298,7 +1298,7 @@ void extrude(int x,int y,int an,int al,int x2,int y2,int an2,int al2) {
     xx=(x*n+x2*(10-n))/10;
     yy=(y*n+y2*(10-n))/10;
     wrectangulo(copia,vga_an,vga_al,c4,xx,yy,aan,aal);
-    volcado_parcial(xx,yy,aan,aal);
+    partial_dump(xx,yy,aan,aal);
     volcado_copia();
     actualiza_caja(xx,yy,aan,aal);
     retrazo();
@@ -1342,7 +1342,7 @@ void actualiza_caja(int x, int y, int an, int al) {
 
   }
 
-  volcado_parcial(x,y,an,al);
+  partial_dump(x,y,an,al);
 }
 
 //═════════════════════════════════════════════════════════════════════════════
@@ -1929,7 +1929,7 @@ void volcado_copia(void) {
   dread_mouse();
   salvaguarda(fondo_raton,mouse_x,mouse_y,mouse_graf,0);
   put(mouse_x,mouse_y,mouse_graf);
-  volcado(copia);
+  dump(copia);
   salvaguarda(fondo_raton,mouse_x,mouse_y,mouse_graf,1);
 
   // **************************************************
@@ -1960,7 +1960,7 @@ void salvaguarda(byte * p, int x, int y, int n, int flag) {
 
   if (x>=vga_an || y>=vga_al || x+an<=0 || y+al<=0) return;
 
-  volcado_parcial(x,y,an,al);
+  partial_dump(x,y,an,al);
 
   q=copia+y*vga_an+x;
 

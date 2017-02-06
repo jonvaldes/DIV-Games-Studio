@@ -719,7 +719,7 @@ void inicializa_entorno() {
   }
 
 	actualiza_caja(0,0,vga_an,vga_al);
-    volcado_completo=1; volcado(copia);
+    volcado_completo=1; dump(copia);
     
   if(!Interpretando) {
     if (!strlen(user1) || !strlen(user2)) {
@@ -1296,10 +1296,10 @@ void mainloop(void) {
 			if (mouse_b&1) {
 				if (big) {
 					wput(copia,-vga_an,vga_al,v.x,v.y,-48);
-					volcado_parcial(v.x,v.y,14,14);
+					partial_dump(v.x,v.y,14,14);
 				} else {
 					wput(copia,vga_an,vga_al,v.x,v.y,-48);
-					volcado_parcial(v.x,v.y,7,7);
+					partial_dump(v.x,v.y,7,7);
 				}
 			}
 			
@@ -1698,10 +1698,10 @@ void mainloop(void) {
 	} else if (restore_button==2) {
 		if (big) {
 			wput(copia,-vga_an,vga_al,v.x,v.y,-38);
-			volcado_parcial(v.x,v.y,14,14);
+			partial_dump(v.x,v.y,14,14);
 		} else {
 			wput(copia,vga_an,vga_al,v.x,v.y,-38);
-			volcado_parcial(v.x,v.y,7,7);
+			partial_dump(v.x,v.y,7,7);
 		}
 	} else if (restore_button==3) {
 		if (big) 
@@ -2092,10 +2092,10 @@ void maximiza_ventana(void) {
 
   if (big) {
     wput(copia,-vga_an,vga_al,v.x,v.y,-48);
-    volcado_parcial(v.x,v.y,14,14);
+    partial_dump(v.x,v.y,14,14);
   } else {
     wput(copia,vga_an,vga_al,v.x,v.y,-48);
-    volcado_parcial(v.x,v.y,7,7);
+    partial_dump(v.x,v.y,7,7);
   }
   volcado_copia();
 
@@ -2186,7 +2186,7 @@ void cierra_ventana(void) {
     if (big) wput(v.ptr,v.an/2,v.al/2,v.an/2-9,2,-45);
     else wput(v.ptr,v.an,v.al,v.an-9,2,-45);
     vuelca_ventana(0);
-    volcado_parcial(v.x,v.y,v.an,v.al);
+    partial_dump(v.x,v.y,v.an,v.al);
     volcado_copia();
   }
 
@@ -2289,10 +2289,10 @@ void mueve_ventana(void) {
     x=mouse_x-ix; y=mouse_y-iy;
 
     wrectangulo(copia,vga_an,vga_al,c4,x,y,an,al);
-    volcado_parcial(x,y,an,1);
-    volcado_parcial(x,y,1,al);
-    volcado_parcial(x,y+al-1,an,1);
-    volcado_parcial(x+an-1,y,1,al);
+    partial_dump(x,y,an,1);
+    partial_dump(x,y,1,al);
+    partial_dump(x,y+al-1,an,1);
+    partial_dump(x+an-1,y,1,al);
     volcado_copia();
 
     if (modo<100) {
@@ -2491,7 +2491,7 @@ div_version=texto[safe];
 
       }
 	}
-  volcado_parcial(x,y,an,al);
+  partial_dump(x,y,an,al);
 
 }
 
@@ -2581,7 +2581,7 @@ void actualiza_caja2(int vent, int x, int y, int an, int al) {
 
 		}
 
-  volcado_parcial(x,y,an,al);
+  partial_dump(x,y,an,al);
 }
 
 //═════════════════════════════════════════════════════════════════════════════
@@ -2762,7 +2762,7 @@ if(0) {
 }
 #endif
 
-	volcado_parcial(x,y,an,al);
+	partial_dump(x,y,an,al);
 
 
 }
@@ -2927,12 +2927,12 @@ void volcado_copia(void) {
   if (modo<100) {
     salvaguarda(fondo_raton,mouse_shift_x,mouse_shift_y,mouse_graf,0);
     put(mouse_shift_x,mouse_shift_y,mouse_graf);
-    volcado(copia);
+    dump(copia);
     salvaguarda(fondo_raton,mouse_shift_x,mouse_shift_y,mouse_graf,1);
   } else {
     salvaguarda(fondo_raton,mouse_x,mouse_y,mouse_graf,0);
     put(mouse_x,mouse_y,mouse_graf);
-    volcado(copia);
+    dump(copia);
     salvaguarda(fondo_raton,mouse_x,mouse_y,mouse_graf,1);
   }
 }
@@ -3190,7 +3190,7 @@ void nueva_ventana(voidReturnType init_handler) {
 			v.exploding=0;
 		}		
         wvolcado(copia,vga_an,vga_al,ptr,x,y,an,al,0);
-        volcado_parcial(x,y,an,al);
+        partial_dump(x,y,an,al);
       }
 
     //───────────────────────────────────────────────────────────────────────────
@@ -3213,7 +3213,7 @@ void nueva_ventana(voidReturnType init_handler) {
           divdelete(0);
           move(0,n-1);
           wrectangulo(v.ptr,v.an/big2,v.al/big2,c4,0,0,v.an/big2,v.al/big2);
-          init_volcado(); vuelca_ventana(0);
+          init_dump(); vuelca_ventana(0);
           retrazo(); volcado_copia();
           wrectangulo(v.ptr,v.an/big2,v.al/big2,c2,0,0,v.an/big2,v.al/big2);
           v.volcar=1; retrazo(); retrazo(); retrazo(); retrazo();
@@ -3231,7 +3231,7 @@ void nueva_ventana(voidReturnType init_handler) {
 //      Explode de una nueva ventana
 //═════════════════════════════════════════════════════════════════════════════
 
-void init_volcado(void);
+void init_dump(void);
 
 void explode(int x,int y,int an,int al) {
   int n=0,tipo=v.tipo,b=big;
@@ -3247,10 +3247,10 @@ void explode(int x,int y,int an,int al) {
     aan=(an*n)/10; aal=(al*n)/10;
     xx=x+an/2-aan/2; yy=y+al/2-aal/2;
     wrectangulo(copia,vga_an,vga_al,c4,xx,yy,aan,aal);
-    volcado_parcial(xx,yy,aan,1);
-    volcado_parcial(xx,yy,1,aal);
-    volcado_parcial(xx,yy+aal-1,aan,1);
-    volcado_parcial(xx+aan-1,yy,1,aal);
+    partial_dump(xx,yy,aan,1);
+    partial_dump(xx,yy,1,aal);
+    partial_dump(xx,yy+aal-1,aan,1);
+    partial_dump(xx+aan-1,yy,1,aal);
     explode_num=n;
     retrazo();
     volcado_copia();
@@ -3278,10 +3278,10 @@ void implode(int x,int y,int an,int al) {
     aal=(al*n)/10; if (!aal) aal=1;
     xx=x+an/2-aan/2; yy=y+al/2-aal/2;
     wrectangulo(copia,vga_an,vga_al,c4,xx,yy,aan,aal);
-    volcado_parcial(xx,yy,aan,1);
-    volcado_parcial(xx,yy,1,aal);
-    volcado_parcial(xx,yy+aal-1,aan,1);
-    volcado_parcial(xx+aan-1,yy,1,aal);
+    partial_dump(xx,yy,aan,1);
+    partial_dump(xx,yy,1,aal);
+    partial_dump(xx,yy+aal-1,aan,1);
+    partial_dump(xx+aan-1,yy,1,aal);
     explode_num=n;
     volcado_copia();
     if (modo<100) {
@@ -3317,10 +3317,10 @@ void extrude(int x,int y,int an,int al,int x2,int y2,int an2,int al2) {
     xx=(x*n+x2*(10-n))/10;
     yy=(y*n+y2*(10-n))/10;
     wrectangulo(copia,vga_an,vga_al,c4,xx,yy,aan,aal);
-    volcado_parcial(xx,yy,aan,1);
-    volcado_parcial(xx,yy,1,aal);
-    volcado_parcial(xx,yy+aal-1,aan,1);
-    volcado_parcial(xx+aan-1,yy,1,aal);
+    partial_dump(xx,yy,aan,1);
+    partial_dump(xx,yy,1,aal);
+    partial_dump(xx,yy+aal-1,aan,1);
+    partial_dump(xx+aan-1,yy,1,aal);
     if (primera_vez!=1) volcado_copia();
 
     if (modo<100) {
@@ -3461,7 +3461,7 @@ uint32_t colorkey=0;
 			v.exploding=0;
 		}
       wvolcado(copia,vga_an,vga_al,ptr,x,y,an,al,0);
-      volcado_parcial(x,y,an,al);
+      partial_dump(x,y,an,al);
       do { read_mouse(); } while(mouse_b&1);
       entorno_dialogo();
 
@@ -3826,7 +3826,7 @@ fclose(f);
   iundo=0; for (a=0;a<max_undos;a++) tundo[a].modo=-1;
   color=0; default_reglas(); modo=101;
   modo_fill=0; modo_circulo=0; modo_caja=1; modo_seleccion=0;
-  v.tipo=0; init_volcado();
+  v.tipo=0; init_dump();
   siguiente_codigo=1; mouse_shift=0;
   memcpy(paleta_original,dac,768);
   quien_arrastra=0; free_drag=1;
@@ -3859,7 +3859,7 @@ fclose(f);
   //read_mouse();
   preparar_tapiz();
   volcado_completo=1;
-  volcado(copia);
+  dump(copia);
 
   InitSound();
 /*

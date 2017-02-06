@@ -510,7 +510,7 @@ void resize_help(void) {
 
     salvaguarda(fondo_raton,_mx,my,mouse_graf,0);
     put(_mx,my,mouse_graf);
-    volcado(copia);
+    dump(copia);
     salvaguarda(fondo_raton,_mx,my,mouse_graf,1);
 
   } while (mouse_b&1);

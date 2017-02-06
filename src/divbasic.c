@@ -71,7 +71,7 @@ void salvaguarda(byte * p, int x, int y, int n, int flag) {
 	if(x>vga_an | y>vga_al)
 		return;
 
-  volcado_parcial(x,y,an,al);
+  partial_dump(x,y,an,al);
 
   q=copia+y*vga_an+x;
 
@@ -183,7 +183,7 @@ void fondo_edicion(int x,int y,int an,int al) {
   if (y+al>vga_al) al=vga_al-y;
   if (an<=0 || al<=0) return;
 
-  volcado_parcial(x,y,an,al);
+  partial_dump(x,y,an,al);
 
   // Repone el fondo del sistema de ventanas, OJO *** mejorar actualiza_caja();
 
@@ -238,7 +238,7 @@ void fondo_edicion(int x,int y,int an,int al) {
   zx=zx+((_x0-zoom_x)<<zoom); zy=zy+((_y0-zoom_y)<<zoom);
   zoom_x=_x0; zoom_y=_y0;
   zan=(_x1-_x0+1)<<zoom; zal=(_y1-_y0+1)<<zoom;
-  volcado_parcial(zx,zy,zan,zal);
+  partial_dump(zx,zy,zan,zal);
   zoom_porcion=1; zoom_map(); zoom_porcion=0;
   zoom_x=_zoom_x; zoom_y=_zoom_y; zx=_zx; zy=_zy; zan=_zan; zal=_zal;
 
@@ -282,17 +282,17 @@ void zoom_map(void) {
         if (zy+zal<vga_al) {
           wbox(copia,vga_an,vga_al,c2,zx-2,zy+zal+1,zan+4,1);
           wbox(copia,vga_an,vga_al,c0,zx-1,zy+zal,zan+2,1);
-          volcado_parcial(0,zy+zal,vga_an,2); }
+          partial_dump(0,zy+zal,vga_an,2); }
         if (zx+zan<vga_an) {
           wbox(copia,vga_an,vga_al,c2,zx-2,zy-2,zan+4,1);
           wbox(copia,vga_an,vga_al,c0,zx-1,zy-1,zan+2,1);
-          volcado_parcial(zy+zan,0,2,vga_al); }
+          partial_dump(zy+zan,0,2,vga_al); }
         if (_big) { big=1; big2=2; }
       }
       zoom_background=1;
     }
 
-    if (zx || zy) volcado_parcial(zx,zy,zan,zal); else volcado_completo=1;
+    if (zx || zy) partial_dump(zx,zy,zan,zal); else volcado_completo=1;
 
   } else {
     p=zoom_p; q=zoom_q; an=zoom_an; al=zoom_al;
@@ -425,7 +425,7 @@ void modo_inter(void) {
 
     if (key(_ESC)||(mouse_b && mouse_in(barra_x,barra_y+10,barra_x+9,barra_y+18)))
       { put_barra(2,10,45); volcar_barras(0);
-        put(mouse_x,mouse_y,mouse_graf); volcado(copia); }
+        put(mouse_x,mouse_y,mouse_graf); dump(copia); }
 
     free(m1); free(m0);
   } else free(m0);
@@ -1034,7 +1034,7 @@ byte * save_undo(int x, int y, int an, int al) {
   } else {
     fondo_edicion(0,0,vga_an,vga_al);
     volcar_barras(1);
-    volcado_completo=1; volcado(copia);
+    volcado_completo=1; dump(copia);
     v_texto=(char *)texto[320]; dialogo(err0); undo_error=1;
   }
 

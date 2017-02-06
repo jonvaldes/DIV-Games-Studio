@@ -602,7 +602,7 @@ void volcadosdl(byte *p) {
 
 }
 
-void volcado(byte *p) {
+void dump(byte *p) {
 
   if ((shift_status&4) && (shift_status&8) && scan_code==_P) snapshot(p);
 
@@ -634,7 +634,7 @@ void volcado(byte *p) {
  } 
 
 
-  init_volcado();
+  init_dump();
 
 
 }
@@ -828,11 +828,11 @@ return;
 //      Select a window for subsequent dump
 //═════════════════════════════════════════════════════════════════════════════
 
-void init_volcado(void) { 
+void init_dump(void) { 
 	memset(&scan[0],0,MAX_YRES*8); volcado_completo=0; 
 }
 
-void volcado_parcial(int x,int y,int an,int al) {
+void partial_dump(int x,int y,int an,int al) {
   int ymax=0,xmax=0,n=0,d1=0,d2=0,x2=0;
 
   if (an==vga_an && al==vga_al && x==0 && y==0) { volcado_completo=1; return; }

@@ -854,7 +854,7 @@ void RefPalAndDlg(int no_tocar_mapas,int guardar_original)
 
   actualiza_caja(0,0,vga_an,vga_al);
 
-  volcado(copia);
+  dump(copia);
 
         for (n=60;n>=0;n-=4)
         {
@@ -1057,7 +1057,7 @@ void fusiona_paleta(void){
 
       if(!div_try) { v_texto=(char *)texto[46]; dialogo(err0); return; }
 
-      mouse_graf=3; volcado(copia);
+      mouse_graf=3; dump(copia);
 
       fusionar_paletas();
 

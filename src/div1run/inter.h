@@ -1,5 +1,4 @@
-#ifndef __INTER_H_
-#define __INTER_H_
+#pragma once
 #ifdef DEFINIR_AQUI
 
 #define GLOBAL
@@ -8,10 +7,10 @@
 #endif
 
 typedef void (*voidReturnType)(void);
-void call(const voidReturnType func); // void funcion(void); int n=(int)funcion; call(n);
+void call(const voidReturnType func); // void function(void); int n=(int)function; call(n);
 
 
-//#define DEBUG // Para compilar la versión con debugger
+//#define DEBUG // To build version with debugging info
 
 //═════════════════════════════════════════════════════════════════════════════
 // Includes
@@ -42,7 +41,7 @@ void call(const voidReturnType func); // void funcion(void); int n=(int)funcion;
 GLOBAL OSDEP_Joystick *divjoy;
 
 //═════════════════════════════════════════════════════════════════════════════
-// Definiciones
+// Definitions
 //═════════════════════════════════════════════════════════════════════════════
 
 #pragma off(check_stack);
@@ -76,9 +75,9 @@ void set_dac(void);
 void retrazo(void);
 void svmode(void);
 void rvmode(void);
-void init_volcado(void);
-void volcado_parcial(int, int, int, int);
-void volcado(byte *);
+void init_dump(void);
+void partial_dump(int, int, int, int);
+void dump(byte *);
 void restore(byte *, byte *);
 void init_ghost(void);
 void crear_ghost(void);
@@ -919,4 +918,3 @@ void e(int texto);
 */
 extern char *fname[];
 
-#endif
