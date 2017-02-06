@@ -1,5 +1,5 @@
 
-#ifdef DEFINIR_AQUI
+#ifdef DEFINE_HERE
 #define GLOBAL
 #else
 #define GLOBAL extern

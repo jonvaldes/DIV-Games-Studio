@@ -21,7 +21,7 @@
 //      Global Variables
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifdef DEFINIR_AQUI // DEFINED HERE
+#ifdef DEFINE_HERE // DEFINED HERE
 #define GLOBAL_DATA
 #else
 #define GLOBAL_DATA extern

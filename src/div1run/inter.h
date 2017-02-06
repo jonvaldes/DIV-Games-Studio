@@ -1,5 +1,5 @@
 #pragma once
-#ifdef DEFINIR_AQUI
+#ifdef DEFINE_HERE
 
 #define GLOBAL
 #else
@@ -266,7 +266,7 @@ GLOBAL int joy_timeout;
 void read_joy(void);
 
 //═════════════════════════════════════════════════════════════════════════════
-// Variables locales del sistema de sprites (las # no son públicas)
+// Variables local to the sprites system (ones marked as # are non-public)
 //═════════════════════════════════════════════════════════════════════════════
 
 #define _Id 0          //Para comprobar validez de accesos externos

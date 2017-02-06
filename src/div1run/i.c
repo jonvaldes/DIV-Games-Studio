@@ -5,7 +5,7 @@
 // Librerias utilizadas
 //═════════════════════════════════════════════════════════════════════════════
 
-#define DEFINIR_AQUI
+#define DEFINE_HERE
 
 #include "inter.h"
 #include "divsound.h"

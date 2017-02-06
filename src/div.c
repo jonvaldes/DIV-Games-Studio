@@ -13,7 +13,7 @@
 //      DIV Operating System
 ///////////////////////////////////////////////////////////////////////////////
 
-#define DEFINIR_AQUI // DEFINED HERE - see global.h
+#define DEFINE_HERE // DEFINED HERE - see global.h
 #ifdef WIN32
 #include <windows.h>
 #include <malloc.h>

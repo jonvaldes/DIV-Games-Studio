@@ -209,7 +209,7 @@
 //      DIV - Compilador Interno
 //├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì├ì
 
-#define DEFINIR_AQUI
+#define DEFINE_HERE
 #define listados // Para generar los listados de objetos y EML (LST/TAB/EML)
 
 #include "global.h"
