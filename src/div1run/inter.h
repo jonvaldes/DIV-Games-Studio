@@ -207,10 +207,10 @@ void memcpyb(byte *di, byte *si, int n);
 #define ldbg 59 //              Invokes the debugger
 
 //═════════════════════════════════════════════════════════════════════════════
-// Variables globales de los programas
+// Global variables for programs
 //═════════════════════════════════════════════════════════════════════════════
 
-#define long_header 36 // Longitud de la cabecera al inicio de los programas
+#define long_header 36 // Header length at beginning of programs
 
 struct _mouse { // x1
 	int x, y, z, file, graph, angle, size, flags, region, left, middle, right;
@@ -244,7 +244,7 @@ struct _setup { // x1
 
 GLOBAL struct _setup *setup;
 
-// *** OJO *** Indicar además de aquí en la inicialización de i.cpp y el div.h ***
+// *** CAUTION *** Apart from here, modify initialization in i.cpp and div.h ***
 
 #define end_struct long_header + 12 + 10 * 10 + 10 * 7 + 8 + 8
 
