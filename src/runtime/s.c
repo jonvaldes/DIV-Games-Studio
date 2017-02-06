@@ -1886,7 +1886,7 @@ void texc(byte * p, int x, int y, byte an, int al) {
 
 void draw_sprites_m7(int n,int cx,int cy,float ang);
 
-void pinta_m7(int n) {
+void draw_m7(int n) {
   int x,y;
   #ifdef DEBUG
   int oreloj=get_ticks();

@@ -1322,7 +1322,7 @@ emscripten_run_script (buf);
       	if (iscroll[snum].on==1) scroll_simple();
       	else if (iscroll[snum].on==2) scroll_parallax();
       } else if (m7ide) {
-      	pinta_m7(m7ide-1); im7[m7ide-1].painted=1;
+      	draw_m7(m7ide-1); im7[m7ide-1].painted=1;
       } else if (ide) {
       	draw_sprite(); mem[ide+_Executed]=1;
       }

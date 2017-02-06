@@ -1522,7 +1522,7 @@ void frame_end(void) {
 					else if (iscroll[snum].on==2) 
 						scroll_parallax();
 				} else if (m7ide) {
-					pinta_m7(m7ide-1);
+					draw_m7(m7ide-1);
 					im7[m7ide-1].painted=1;
 				} else if (ide) {
 					if (mem[ide+_Graph]>0 || mem[ide+_XGraph]>0) {

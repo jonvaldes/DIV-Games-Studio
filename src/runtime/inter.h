@@ -131,7 +131,7 @@ void sp_scan(byte * p,short n,byte * si,int an,int x0,int y0,int x1,int y1);
 void draw_texts(int n);
 void pinta_drawings(void);
 void init_sin_cos(void);
-void pinta_m7(int);
+void draw_m7(int);
 int get_distx(int a,int d);
 int get_disty(int a,int d);
 
