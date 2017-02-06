@@ -38,7 +38,7 @@ void InitHandler(int);
 int DetectBlaster(int*,int*,int*,int*,int*);
 int DetectGUS(int*,int*,int*,int*,int*);
 
-extern int get_reloj();
+extern int get_clock();
 
 void deb(void);
 
@@ -207,7 +207,7 @@ int main(int argc,char * argv[]) {
 #endif
 
   vga_an=320; vga_al=200;
-    ireloj=100.0/24.0;
+    iclock=100.0/24.0;
     max_saltos = 0;
     game_fps=dfps=24;
 
@@ -411,7 +411,7 @@ void inicializacion (void) {
     (m7+n)->focus=256;
   }
 
-  get_reloj(); last_clock=0; freloj=ireloj=5.5; max_saltos=0;
+  get_clock(); last_clock=0; fclock=iclock=5.5; max_saltos=0;
 	
 #ifdef __EMSCRIPTEN__
 max_saltos=2;
@@ -553,7 +553,7 @@ void system_font(void) {
 // Intérprete del código generado
 //═════════════════════════════════════════════════════════════════════════════
 
-int max,max_reloj;        // Para procesar según _Priority y pintar según _Z
+int max,max_clock;        // Para procesar según _Priority y pintar según _Z
 extern int alt_x;
 void interprete (void) {
 
@@ -601,7 +601,7 @@ void exec_process(void) {
     continue_process:
     #endif
 
-    max_reloj=get_reloj()+max_process_time;
+    max_clock=get_clock()+max_process_time;
 //    printf("running bytecode: %d %d\n",ip+1,mem[ip+1]);
 //printf("process entered at %d \n",ip);
   	do {
@@ -676,8 +676,8 @@ void exec_process(void) {
       #endif
       #ifdef DEBUG
       case ljmp: ip=mem[ip];
-        if (get_reloj()>max_reloj) {
-          v_function=-2; e(e142); max_reloj=max_process_time+get_reloj();
+        if (get_clock()>max_clock) {
+          v_function=-2; e(e142); max_clock=max_process_time+get_clock();
           if (call_to_debug) { process_stoped=id; return; }
         } break;
       #else
@@ -685,8 +685,8 @@ void exec_process(void) {
       #endif
       #ifdef DEBUG
       case ljpf: if (pila[sp--]&1) ip++; else ip=mem[ip];
-        if (get_reloj()>max_reloj) {
-          v_function=-2; e(e142); max_reloj=max_process_time+get_reloj();
+        if (get_clock()>max_clock) {
+          v_function=-2; e(e142); max_clock=max_process_time+get_clock();
           if (call_to_debug) { process_stoped=id; return; }
         } break;
       #else
@@ -875,7 +875,7 @@ void trace_process(void) {
 #endif
     id=ide; ip=mem[id+_IP]; sp=64; pila[64]=0;
     continue_process:
-    max_reloj=get_reloj()+max_process_time;
+    max_clock=get_clock()+max_process_time;
   	switch ((byte)mem[ip++]) {
       case lnop: break;
       case lcar: pila[++sp]=mem[ip++]; break;
@@ -916,13 +916,13 @@ void trace_process(void) {
           if (call_to_debug) { ip++; process_stoped=id; return; }
         } ip++; break;
       case ljmp: ip=mem[ip];
-        if (get_reloj()>max_reloj) {
-          v_function=-2; e(e142); max_reloj=max_process_time+get_reloj();
+        if (get_clock()>max_clock) {
+          v_function=-2; e(e142); max_clock=max_process_time+get_clock();
           if (call_to_debug) { process_stoped=id; return; }
         } break;
       case ljpf: if (pila[sp--]&1) ip++; else ip=mem[ip];
-        if (get_reloj()>max_reloj) {
-          v_function=-2; e(e142); max_reloj=max_process_time+get_reloj();
+        if (get_clock()>max_clock) {
+          v_function=-2; e(e142); max_clock=max_process_time+get_clock();
           if (call_to_debug) { process_stoped=id; return; }
         } break;
       case lfun: function();
@@ -1057,7 +1057,7 @@ void frame_start(void) {
   // Control del screen saver
 
   if (ss_status && ss_frame!=NULL) {
-    if (get_reloj()>ss_time_counter) {
+    if (get_clock()>ss_time_counter) {
       if (ss_init!=NULL) ss_init();
       ss_exit=0; do {
         key_check=0; for (n=0;n<128;n++) if (key(n)) key_check++;
@@ -1077,7 +1077,7 @@ void frame_start(void) {
       if (ss_end!=NULL) ss_end();
       memcpy(copia,copia2,vga_an*vga_al);
       partial_dump(0,0,vga_an,vga_al);
-      ss_time_counter=get_reloj()+ss_time;
+      ss_time_counter=get_clock()+ss_time;
     }
   }
 
@@ -1100,14 +1100,14 @@ void frame_start(void) {
     } fading=0;
   }
 
-  for (max=0;max<10;max++) timer(max)+=get_reloj()-last_clock;
+  for (max=0;max<10;max++) timer(max)+=get_clock()-last_clock;
 
-  if (get_reloj()>last_clock) {
-    ffps=(ffps*49.0+100.0/(float)(get_reloj()-last_clock))/50.0;
+  if (get_clock()>last_clock) {
+    ffps=(ffps*49.0+100.0/(float)(get_clock()-last_clock))/50.0;
     fps=(int)ffps;
   }
 
-  last_clock=get_reloj();
+  last_clock=get_clock();
 
   //LoopSound();
 
@@ -1115,21 +1115,21 @@ void frame_start(void) {
   
   tecla();
 
-  if (get_reloj()>(freloj+ireloj/3)) { // Permite comerse hasta un tercio del sgte frame
+  if (get_clock()>(fclock+iclock/3)) { // Permite comerse hasta un tercio del sgte frame
     if (volcados_saltados<max_saltos) {
       volcados_saltados++;
       saltar_volcado=1;
-      freloj+=ireloj;
+      fclock+=iclock;
     } else {
-      freloj=(float)get_reloj()+ireloj;
+      fclock=(float)get_clock()+iclock;
       volcados_saltados=0;
       saltar_volcado=0;
     }
   } else {
-    do { } while (get_reloj()<(int)freloj); // Espera para no dar más de "n" fps
+    do { } while (get_clock()<(int)fclock); // Espera para no dar más de "n" fps
     volcados_saltados=0;
     saltar_volcado=0;
-    freloj+=ireloj;
+    fclock+=iclock;
   }
 
   // Marca todos los procesos como no ejecutados
@@ -1151,7 +1151,7 @@ void frame_start(void) {
     mouse->middle=(cbd.mouse_bx&4)/4;
     mouse->right=(cbd.mouse_bx&2)/2;
     cbd.mouse_action=0;
-    ss_time_counter=get_reloj()+ss_time;
+    ss_time_counter=get_clock()+ss_time;
   }
 */
 
@@ -1168,20 +1168,20 @@ void frame_start(void) {
     joy_check=joy->button1+joy->button2+joy->left+joy->right+joy->up+joy->down;
     if (joy_check!=last_joy_check) {
       last_joy_check=joy_check;
-      ss_time_counter=get_reloj()+ss_time;
+      ss_time_counter=get_clock()+ss_time;
     }
   }
 
   key_check=0; for (n=0;n<128;n++) if (key(n)) key_check++;
   if (key_check!=last_key_check) {
     last_key_check=key_check;
-    ss_time_counter=get_reloj()+ss_time;
+    ss_time_counter=get_clock()+ss_time;
   }
 
   mou_check=mouse->x+mouse->y+mouse->left+mouse->right+mouse->middle;
   if (mou_check!=last_mou_check) {
     last_mou_check=mou_check;
-    ss_time_counter=get_reloj()+ss_time;
+    ss_time_counter=get_clock()+ss_time;
   }
 
 }
@@ -1242,7 +1242,7 @@ emscripten_run_script (buf);
     ss_frame              =(void (*)())DIV_import("ss_frame"); //ok
     ss_end                =(void (*)())DIV_import("ss_end"); //ok
 #endif
-    ss_time_counter=get_reloj()+ss_time;
+    ss_time_counter=get_clock()+ss_time;
 
     // DLL_1 Aquí se llama a uno.
 
@@ -1311,7 +1311,7 @@ emscripten_run_script (buf);
 //      	    mouse->middle=(cbd.mouse_bx&4)/4;
 //      	    mouse->right=(cbd.mouse_bx&2)/2;
 //      	    cbd.mouse_action=0;
-//            ss_time_counter=get_reloj()+ss_time;
+//            ss_time_counter=get_clock()+ss_time;
 //          }
           x1s=-1; v_function=-1; // No se producen errores
           put_sprite(mouse->file,mouse->graph,mouse->x,mouse->y,mouse->angle,mouse->size,mouse->flags,mouse->region,copia,vga_an,vga_al);

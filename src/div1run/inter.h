@@ -559,7 +559,7 @@ GLOBAL byte last_c1; // Ultimo color del font del sistema (en paleta cargada)
 
 GLOBAL int reloj; // Límite de velocidad
 GLOBAL int last_clock;
-GLOBAL double freloj, ireloj;
+GLOBAL double fclock, iclock;
 
 GLOBAL int max_saltos; // Máximo nº de volcados saltados
 GLOBAL int dfps;

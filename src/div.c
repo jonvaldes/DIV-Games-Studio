@@ -867,7 +867,7 @@ int IntIncr  = 65536;
 
 byte rndb(void);
 
-int old_reloj,loop_count=0; 
+int old_clock,loop_count=0; 
 extern int reloj; // clock
 
 ///////////////////////////////////////////////////////////////////////////////

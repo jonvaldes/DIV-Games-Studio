@@ -44,7 +44,7 @@ void net_recv(void);
 void net_get_games(void);
 
 int net_create_game(int game_id,char *nombre, int num_jugadores);
-int old_net_reloj;
+int old_net_clock;
 
 extern void arse(void);
 
@@ -54,7 +54,7 @@ extern void arse(void);
 
 int net_init(int game_id)
 {
-  old_net_reloj=reloj;
+  old_net_clock=reloj;
   fprintf(stdout,"Starting NETPLAY\n");
   
   return(net_init_internet(game_id));
@@ -229,7 +229,7 @@ int dial=0;//????????? FERNANDO ?????
 
 void _net_loop(void)
 {
-  static int con_reloj=0;
+  static int con_clock=0;
 
   //---------------------------------------------------------------------------
   // Compruebo si se inició la comunicacion, en caso contrario retorna
@@ -248,11 +248,11 @@ void _net_loop(void)
   //---------------------------------------------------------------------------
   net->servidor=partida_red.servidor;
   net->tonos=partida_red.game_id;
-  con_reloj+=(reloj-old_net_reloj);
-  old_net_reloj=reloj;
-//  if(con_reloj>2)
+  con_clock+=(reloj-old_net_clock);
+  old_net_clock=reloj;
+//  if(con_clock>2)
 //  {
-//    con_reloj-=2;
+//    con_clock-=2;
     net_send();
   net_recv();
 

@@ -47,7 +47,7 @@ void finalizacion (void);
 void elimina_proceso(int id);
 void nucleo_exec(void);
 void nucleo_trace(void);
-int get_reloj(void);
+int get_clock(void);
 
 
 void deb(void);
@@ -86,7 +86,7 @@ int process_level=0; // Para contabilizar los cal/ret (para el step del debug)
 int nullstring[4];
 int nstring=0;
 
-int max,max_reloj;        // Process in order or _Priority and _Z 
+int max,max_clock;        // Process in order or _Priority and _Z 
 extern int alt_x;
 int splashtime = 5000; // 5 seconds
 #ifdef EMSCRIPTEN
@@ -569,7 +569,7 @@ init_rnd(dtime);
   }
 
   ticks=0; reloj=0; last_clock=0;
-  freloj=ireloj=1000.0/24.0;
+  fclock=iclock=1000.0/24.0;
   game_fps=dfps=24;
   max_saltos=0;
 #ifdef __EMSCRIPTEN__
@@ -873,7 +873,7 @@ void es_fps(byte f) {
 // Procesa el siguiente proceso
 //�����������������������������������������������������������������������������
 #ifdef DEBUG
-int oreloj;
+int oclock;
 #endif
 
 #ifndef DEBUG
@@ -886,7 +886,7 @@ void exec_process(void) {
 
 #ifdef DEBUG
 
-	oreloj=get_ticks();
+	oclock=get_ticks();
 
 	if (process_stoped) {
 		id=ide=process_stoped;
@@ -929,7 +929,7 @@ void exec_process(void) {
 			continue_process:
 #endif
 
-			max_reloj=get_reloj()+max_process_time;
+			max_clock=get_clock()+max_process_time;
 
 			nucleo_exec();
 
@@ -970,7 +970,7 @@ void nucleo_exec() {
 
 void trace_process(void) {
 
-	oreloj=get_ticks();
+	oclock=get_ticks();
 
 	ide=0; max=0x80000000;
 
@@ -1011,7 +1011,7 @@ void trace_process(void) {
 
 		continue_process:
 
-		max_reloj=get_reloj()+max_process_time;
+		max_clock=get_clock()+max_process_time;
 
 		nucleo_trace();
 	}
@@ -1052,7 +1052,7 @@ float ffps=24.0f;
 #ifdef DEBUG
 
 float ffps2=0.0f;
-int overall_reloj=0;
+int overall_clock=0;
 double game_ticks=0.0f;
 double game_frames=0.0f;
 
@@ -1060,10 +1060,10 @@ double game_frames=0.0f;
 
 
 void frame_start(void) {
-	int n,old_reloj;
+	int n,old_clock;
 
 #ifdef DEBUG
-	int oreloj;
+	int oclock;
 #endif
 
 	ascii=0;
@@ -1074,7 +1074,7 @@ void frame_start(void) {
 
 	if (ss_status && ss_frame!=NULL) {
 
-		if (get_reloj()>ss_time_counter) {
+		if (get_clock()>ss_time_counter) {
 
 			if (ss_init!=NULL) 
 				ss_init();
@@ -1119,12 +1119,12 @@ void frame_start(void) {
 
 			memcpy(copia,copia2,vga_an*vga_al);
 			partial_dump(0,0,vga_an,vga_al);
-			ss_time_counter=get_reloj()+ss_time;
+			ss_time_counter=get_clock()+ss_time;
 		}
 	}
 
 #ifdef DEBUG
-	oreloj=get_ticks();
+	oclock=get_ticks();
 #endif
 
   // Eliminate dead processes
@@ -1134,80 +1134,80 @@ void frame_start(void) {
 			elimina_proceso(ide);
 
 #ifdef DEBUG
-	function_exec(255,get_ticks()-oreloj);
+	function_exec(255,get_ticks()-oclock);
 #endif
 
 #ifdef DEBUG
-	oreloj=get_ticks();
+	oclock=get_ticks();
 #endif
 
 	for (max=0;max<10;max++) {
     if(otimer[max]!=timer(max)) {
       mtimer[max]=timer(max)*10;
     }
-		mtimer[max]+=(get_reloj()-last_clock);
+		mtimer[max]+=(get_clock()-last_clock);
     timer(max)=mtimer[max]/10;
     otimer[max]=timer(max);
   }
 
 
-	if (get_reloj()>last_clock) {
-		ffps=(ffps*9.0f+1000.0f/(float)(get_reloj()-last_clock))/10.0f;
+	if (get_clock()>last_clock) {
+		ffps=(ffps*9.0f+1000.0f/(float)(get_clock()-last_clock))/10.0f;
 		fps=(int)(ffps+0.5f);
 	}
 
-	last_clock=get_reloj();
+	last_clock=get_clock();
 
 #ifdef DEBUG
-	if (overall_reloj) {
-		game_ticks+=(double)(get_ticks()-overall_reloj);
+	if (overall_clock) {
+		game_ticks+=(double)(get_ticks()-overall_clock);
 		game_frames+=1;
 		
 		if (ffps2>0)
 			ffps2=(ffps2*3.0f+(double)4600.0/(game_ticks/game_frames))/4.0f;
 		else 
 			ffps2=(double)4600.0/(game_ticks/game_frames);
-	} function_exec(255,get_ticks()-oreloj);
+	} function_exec(255,get_ticks()-oclock);
 #endif
 
-	if (get_reloj()>(freloj+ireloj/3)) { // Permite comerse hasta un tercio del sgte frame
+	if (get_clock()>(fclock+iclock/3)) { // Permite comerse hasta un tercio del sgte frame
 		if (volcados_saltados<max_saltos) {
 			volcados_saltados++;
 			saltar_volcado=1;
-			freloj+=ireloj;
+			fclock+=iclock;
 		} else {
-			freloj=(float)get_reloj()+ireloj;
+			fclock=(float)get_clock()+iclock;
 			volcados_saltados=0;
 			saltar_volcado=0;
 		}
 	} else {
 		n=0; 
-		old_reloj=get_reloj();
+		old_clock=get_clock();
 
 #ifndef EMSCRIPTEN
-		if(old_reloj<(int)freloj) {
+		if(old_clock<(int)fclock) {
 
 		do {
 #ifdef WIN32
-			SDL_Delay(((int)freloj-old_reloj)-1);
+			SDL_Delay(((int)fclock-old_clock)-1);
 #else
 			sched_yield();			
-//			usleep(((int)freloj-old_reloj)-1); 
+//			usleep(((int)fclock-old_clock)-1); 
 #endif			
-		} while (get_reloj()<(int)freloj); // TO keep FPS
+		} while (get_clock()<(int)fclock); // TO keep FPS
 		}
 #else
 		do {
 			retrace();
-		} while (get_reloj()<(int)freloj);
+		} while (get_clock()<(int)fclock);
 #endif
 		volcados_saltados=0;
 		saltar_volcado=0;
-		freloj+=ireloj;
+		fclock+=iclock;
 	}
 
 #ifdef DEBUG
-	overall_reloj=oreloj=get_ticks();
+	overall_clock=oclock=get_ticks();
 #endif
 
 // Mark all proceeses as "not executed"
@@ -1237,7 +1237,7 @@ void frame_start(void) {
 		
 		if (joy_check!=last_joy_check) {
 			last_joy_check=joy_check;
-			ss_time_counter=get_reloj()+ss_time;
+			ss_time_counter=get_clock()+ss_time;
 		}
 	}
 
@@ -1245,18 +1245,18 @@ void frame_start(void) {
 
 	if (key_check!=last_key_check) {
 		last_key_check=key_check;
-		ss_time_counter=get_reloj()+ss_time;
+		ss_time_counter=get_clock()+ss_time;
 	}
 
 	mou_check=mouse->x+mouse->y+mouse->left+mouse->right+mouse->middle;
 
 	if (mou_check!=last_mou_check) {
 		last_mou_check=mou_check;
-		ss_time_counter=get_reloj()+ss_time;
+		ss_time_counter=get_clock()+ss_time;
 	}
 
 #ifdef DEBUG
-	function_exec(255,get_ticks()-oreloj);
+	function_exec(255,get_ticks()-oclock);
 #endif
 
 }
@@ -1272,7 +1272,7 @@ void frame_end(void) {
 	char buf[255];
 
 #ifdef DEBUG
-	int oreloj;
+	int oclock;
 #endif
 
 #ifdef __EMSCRIPTEN__
@@ -1312,7 +1312,7 @@ void frame_end(void) {
 		ss_frame              =(void (*)())DIV_import("ss_frame"); //ok
 		ss_end                =(void (*)())DIV_import("ss_end"); //ok
 
-		ss_time_counter=get_reloj()+ss_time;
+		ss_time_counter=get_clock()+ss_time;
 
 		// DLL_1 Aqu� se llama a uno.
 
@@ -1336,7 +1336,7 @@ void frame_end(void) {
 	// *** OJO *** Restaura las zonas de copia fuera del scroll y del modo 7
 
 #ifdef DEBUG
-	oreloj=get_ticks();
+	oclock=get_ticks();
 #endif
 
 	if (restore_type==0 || restore_type==1) {
@@ -1359,10 +1359,10 @@ void frame_end(void) {
 #ifdef DEBUG
 	if (debugger_step) {
 		function_exec(253,tiempo_restore);
-		game_ticks-=get_ticks()-oreloj;
+		game_ticks-=get_ticks()-oclock;
 		game_ticks+=tiempo_restore;
 	} else {
-		n=get_ticks()-oreloj;
+		n=get_ticks()-oclock;
 		function_exec(253,n);
 		
 		if (!tiempo_restore)
@@ -1370,7 +1370,7 @@ void frame_end(void) {
 		else
 			tiempo_restore=(tiempo_restore*3+n)/4;
 	}
-	oreloj=get_ticks();
+	oclock=get_ticks();
 #endif
 
 #if (defined MODE8) || (defined NEWMODE8)
@@ -1405,8 +1405,8 @@ void frame_end(void) {
 
 #ifdef DEBUG
 	if (n) {
-		function_exec(251,get_ticks()-oreloj);
-		oreloj=get_ticks();
+		function_exec(251,get_ticks()-oclock);
+		oclock=get_ticks();
 	}
 #endif
 
@@ -1423,7 +1423,7 @@ void frame_end(void) {
 	}
 
 #ifdef DEBUG
-	function_exec(255,get_ticks()-oreloj);
+	function_exec(255,get_ticks()-oclock);
 #endif
 
 #ifndef NOTYET
@@ -1431,7 +1431,7 @@ void frame_end(void) {
     do {
 
 #ifdef DEBUG
-		oreloj=get_ticks();
+		oclock=get_ticks();
 #endif
 
       ide=0; m7ide=0; scrollide=0; otheride=0; max=0x80000000;
@@ -1485,7 +1485,7 @@ void frame_end(void) {
 							memb[nullstring[3]*4]=0;
 							draw_texts(0);
 #ifdef DEBUG
-							function_exec(250,get_ticks()-oreloj);
+							function_exec(250,get_ticks()-oclock);
 #endif
 						} textos_pintados=1;
 					} else if (otheride==2) {
@@ -1499,7 +1499,7 @@ void frame_end(void) {
 						mouse_y1=y1s;
 						mouse_pintado=1;
 #ifdef DEBUG
-						function_exec(255,get_ticks()-oreloj);
+						function_exec(255,get_ticks()-oclock);
 #endif
 					} else if (otheride==3) {
 						for (n=0;n<max_drawings;n++)
@@ -1509,7 +1509,7 @@ void frame_end(void) {
 						if (n<max_drawings) {
 							pinta_drawings();
 #ifdef DEBUG
-							function_exec(250,get_ticks()-oreloj);
+							function_exec(250,get_ticks()-oclock);
 #endif
 						}
 						drawings_pintados=1;
@@ -1528,7 +1528,7 @@ void frame_end(void) {
 					if (mem[ide+_Graph]>0 || mem[ide+_XGraph]>0) {
 						draw_sprite();
 #ifdef DEBUG
-						process_paint(ide,get_ticks()-oreloj);
+						process_paint(ide,get_ticks()-oclock);
 #endif
 					}	mem[ide+_Executed]=1;
 
@@ -1579,7 +1579,7 @@ void frame_end(void) {
 					memb[nullstring[3]*4]=0;
 					draw_texts(0);
 #ifdef DEBUG
-					function_exec(250,get_ticks()-oreloj);
+					function_exec(250,get_ticks()-oclock);
 #endif
 				} 
 				textos_pintados=1;
@@ -1609,7 +1609,7 @@ void frame_end(void) {
 				}
 
 #ifdef DEBUG
-				oreloj=get_ticks();
+				oclock=get_ticks();
 
 				if (debugger_step) {
 					function_exec(254,tiempo_volcado);
@@ -1674,7 +1674,7 @@ void frame_end(void) {
 					}
 
 #ifdef DEBUG
-					n=get_ticks()-oreloj;
+					n=get_ticks()-oclock;
 					function_exec(254,n);
 					
 					if (!tiempo_volcado)
@@ -2062,7 +2062,7 @@ if(true) {
 
 
 	vga_an=320; vga_al=200; 
-	ireloj=1000.0/24.0; // 24 fps
+	iclock=1000.0/24.0; // 24 fps
 	max_saltos = 0; // 0 skips
 
 #ifdef __EMSCRIPTEN__

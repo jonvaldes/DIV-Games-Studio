@@ -105,7 +105,7 @@ static unsigned int mul_16(long a, long b)
 
 void draw_sprites_scroll(void) {
   #ifdef DEBUG
-  int oreloj;
+  int oclock;
   #endif
   int old_ide=ide,max;
 
@@ -114,7 +114,7 @@ void draw_sprites_scroll(void) {
   for (ide=id_start; ide<=id_end; ide+=iloc_len) mem[ide+_Painted]=0;
   do {
     #ifdef DEBUG
-    oreloj=get_ticks();
+    oclock=get_ticks();
     #endif
     ide=0; max=0x80000000;
     for (id=id_start; id<=id_end; id+=iloc_len)
@@ -124,7 +124,7 @@ void draw_sprites_scroll(void) {
     if (ide) {
       draw_sprite(); mem[ide+_Painted]=1;
       #ifdef DEBUG
-      process_paint(ide,get_ticks()-oreloj);
+      process_paint(ide,get_ticks()-oclock);
       #endif
     }
   } while (ide); ide=old_ide;
@@ -194,7 +194,7 @@ void mover_scroll(int back) {
 void scroll_simple(void) {
   int n,b;
   #ifdef DEBUG
-  int oreloj=get_ticks();
+  int oclock=get_ticks();
   #endif
   byte *di,*si;
 
@@ -209,7 +209,7 @@ void scroll_simple(void) {
     if (--b==0) si-=iscroll[snum].an*(iscroll[snum].al-1); else si+=iscroll[snum].an;
   }
   #ifdef DEBUG
-  function_exec(252,get_ticks()-oreloj);
+  function_exec(252,get_ticks()-oclock);
   #endif
   draw_sprites_scroll();
 }
@@ -221,7 +221,7 @@ void scroll_simple(void) {
 void scroll_parallax(void) {
   int n,an,b1,b2;
   #ifdef DEBUG
-  int oreloj=get_ticks();
+  int oclock=get_ticks();
   #endif
   int nt,scan;
   byte *di,*si1,*si2;
@@ -265,7 +265,7 @@ void scroll_parallax(void) {
     if (--b2==0) si2-=iscroll[snum].an*iscroll[snum].al;
   }
   #ifdef DEBUG
-  function_exec(252,get_ticks()-oreloj);
+  function_exec(252,get_ticks()-oclock);
   #endif
   draw_sprites_scroll();
 }
@@ -1889,7 +1889,7 @@ void draw_sprites_m7(int n,int cx,int cy,float ang);
 void draw_m7(int n) {
   int x,y;
   #ifdef DEBUG
-  int oreloj=get_ticks();
+  int oclock=get_ticks();
   #endif
   int id=(m7+n)->camera;
   int height=(m7+n)->height;
@@ -1916,7 +1916,7 @@ void draw_m7(int n) {
   if (post_process_m7!=NULL) post_process_m7();
 
   #ifdef DEBUG
-  function_exec(251,get_ticks()-oreloj);
+  function_exec(251,get_ticks()-oclock);
   #endif
 
   draw_sprites_m7(n,x,-y,(float)((float)mem[id+_Angle]/radian));
@@ -1930,7 +1930,7 @@ void draw_m7(int n) {
 void draw_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posición de la cámara
   int factor;
   #ifdef DEBUG
-  int oreloj;
+  int oclock;
   #endif
   int cx2=cx/4096,cy2=cy/4096,dx,dy;
   int ide,id,max,distmax,old_z;
@@ -1966,7 +1966,7 @@ void draw_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posición
 
   do {
     #ifdef DEBUG
-    oreloj=get_ticks();
+    oclock=get_ticks();
     #endif
     ide=0; max=0x80000000;
     for (id=id_start; id<=id_end; id+=iloc_len) {
@@ -2004,7 +2004,7 @@ void draw_sprites_m7(int n,int cx,int cy,float ang) { // Le pasamos la posición
 
         draw_sprite_m7(n,ide,anchura,altura,porcen,h);
         #ifdef DEBUG
-        process_paint(ide,get_ticks()-oreloj);
+        process_paint(ide,get_ticks()-oclock);
         #endif
 
         // *** Pixel blanco en la base del objeto ***

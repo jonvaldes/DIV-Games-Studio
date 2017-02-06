@@ -38,7 +38,7 @@ void _encriptar(int encode, char * fichero, char * clave);
 void _comprimir(int encode, char *fichero);
 
 
-extern int max_reloj;
+extern int max_clock;
 
 void set_sector_height(void);
 void get_sector_height(void);
@@ -91,16 +91,16 @@ extern int nomitidos;
 //  Para arreglar el puto bug de /oneatx /fp5 en i.cpp
 //����������������������������������������������������������������������������
 
-static int n_reloj=0, o_reloj=0;
+static int n_clock=0, o_clock=0;
 
-int get_reloj(void) {
+int get_clock(void) {
 	
 //	reloj = SDL_GetTicks()/10;
 //		return reloj;
 		
-	n_reloj=OSDEP_GetTicks();
-	reloj+=(n_reloj-o_reloj);
-	o_reloj=n_reloj;
+	n_clock=OSDEP_GetTicks();
+	reloj+=(n_clock-o_clock);
+	o_clock=n_clock;
 
 //reloj=SDL_GetTicks()/10;
 	return reloj;
@@ -785,7 +785,7 @@ void load_map(void) {
 
   } else { e(144); free(ptr); return; }
 
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -977,7 +977,7 @@ int *ptr_8=(int*)ptr3;
 printf("fpg search ended, %x: ptr: %x\n",(byte *)g[num].fpg+file_len,ptr);
 #endif
   pila[sp]=num;
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -1295,7 +1295,7 @@ void load_fnt(void) {
     f_i[ifonts].syspal=palcrc;
   }
 
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -1923,7 +1923,7 @@ void save(void) {
   if(lon!=llon)//*unit_size) 
     e(124);
 
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 void _save(void) {
@@ -1945,7 +1945,7 @@ void _save(void) {
 
   if(llon !=lon)
     e(124);
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 
@@ -1972,7 +1972,7 @@ void load(void) {
     if(lon>0) {
       if (!capar(offset+lon)) { pila[sp]=0; e(125); return; }
       memcpy(&mem[offset],packptr,lon);
-      max_reloj+=get_reloj()-old_reloj;
+      max_clock+=get_clock()-old_clock;
       return;
     }
 
@@ -1996,7 +1996,7 @@ void load(void) {
     e(127); 
   }
   fclose(es);
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -2127,7 +2127,7 @@ void load_pcm(void) {
 
   free(ptr);
 
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -2246,7 +2246,7 @@ void load_song(void) {
 
   free(ptr);
 
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -2332,7 +2332,7 @@ void set_fps(void) {
 //  emscripten_cancel_main_loop();
 //  emscripten_set_main_loop(mainloop,dfps,0);
 #endif
-  ireloj=1000.0/(double)pila[sp];
+  iclock=1000.0/(double)pila[sp];
 }
 
 //����������������������������������������������������������������������������
@@ -2630,7 +2630,7 @@ void fade_off(void) {
   //} 
   fading=1;
   pila[++sp]=0;
-  //max_reloj+=get_reloj()-old_reloj;
+  //max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -3255,7 +3255,7 @@ void sort(void) {
       else qsort(&mem[offset],numreg,size*4,sort4);
       break;
   }
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -3405,7 +3405,7 @@ void _fread(void) {
     if (n/unit_size<lon) memset(&memb[offset*4+n],0,lon*unit_size-n);
     pila[sp]=1;
   }
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -3427,7 +3427,7 @@ void _fwrite(void) {
   f=(FILE *)tabfiles[handle/2];
   if (!capar(offset) || !capar(offset+(lon*unit_size)/4)) { pila[sp]=0; e(122); return; }
   if (fwrite(&mem[offset],unit_size,lon,f)!=lon) { pila[sp]=0; e(124); } else pila[sp]=1;
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -3979,7 +3979,7 @@ void save_mapcx(int tipo) {
   }
   fclose(f); pila[sp]=1;
 
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 //����������������������������������������������������������������������������
@@ -4455,7 +4455,7 @@ void encode_file(int encode) {
     rc=_dos_findnext(&ft);
   }
 
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 void _encriptar(int encode, char * fichero, char * clave) {
@@ -4557,7 +4557,7 @@ void _compress(int encode) {
     rc=_dos_findnext(&ft);
   }
 
-  max_reloj+=get_reloj()-old_reloj;
+  max_clock+=get_clock()-old_clock;
 }
 
 void _comprimir(int encode, char *fichero) {
@@ -4689,7 +4689,7 @@ void function(void) {
   int oticks=get_ticks();
   #endif
 
-  old_reloj=get_reloj();
+  old_clock=get_clock();
 
 //printf("func: %s\n",fname[mem[ip+1]]);
 

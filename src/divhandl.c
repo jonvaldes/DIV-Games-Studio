@@ -1377,7 +1377,7 @@ void menu_sistema2(void) {
   actualiza_menu(875,1,0); if ((old_mouse_b&1) && !(mouse_b&1)) {
     switch (v.estado) {
       case 1: muestra_cd_player(); break;
-      case 2: muestra_reloj(); break;
+      case 2: show_clock(); break;
       case 3: muestra_papelera(); break;
       case 4: calculadora(); break;
       case 5: dialogo(Vid_Setup0); break;

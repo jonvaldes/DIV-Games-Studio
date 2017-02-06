@@ -405,7 +405,7 @@ void finaliza_textos(void);
 ///////////////////////////////////////////////////////////////////////////////
 
 void muestra_cd_player();
-void muestra_reloj();
+void show_clock();
 void CDiv0(void);void CDiv1(void);
 void Clock0(void);void Clock1(void);
 void Bin0(void);void Bin1(void);

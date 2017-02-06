@@ -502,7 +502,7 @@ void Clock0(void)
         ORDig4=-1;
 }
 
-void muestra_reloj()
+void show_clock()
 {
         nueva_ventana(Clock0);
 }

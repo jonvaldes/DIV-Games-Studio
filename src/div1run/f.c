@@ -218,12 +218,12 @@ void function(void) {
 //      Signal(proceso,señal)
 //════════════════════════════════════════════════════════════════════════════
 
-static int n_reloj=0, o_reloj=0;
+static int n_clock=0, o_clock=0;
 
-int get_reloj(void) {
-/*	n_reloj=SDL_GetTicks()/10;
-	reloj+=(n_reloj-o_reloj);
-	o_reloj=n_reloj;
+int get_clock(void) {
+/*	n_clock=SDL_GetTicks()/10;
+	reloj+=(n_clock-o_clock);
+	o_clock=n_clock;
 	*/
 	reloj=SDL_GetTicks()/10;
 	return reloj;
@@ -466,7 +466,7 @@ void unload_map(void) {
 void load_map(void) {
   int ancho,alto,npuntos,m;
   byte * ptr;
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
 
   if ((es=div_open_file((byte*)&mem[itxt+pila[sp]]))==NULL) {
     pila[sp]=0; e(e143);
@@ -505,7 +505,7 @@ void load_map(void) {
       pila[sp]=next_map_code++;
 
     } else { fclose(es); pila[sp]=0; e(e100); }
-  } reloj=old_reloj;
+  } reloj=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -545,7 +545,7 @@ void load_fpg(void) {
   int n=0,m;
   int * * lst;
   byte * ptr;
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
  int * iptr;
   while (n<max_fpgs) {
     if (g[n].fpg==0) break; n++;
@@ -630,7 +630,7 @@ ptr+=1352; // Longitud cabecera fpg
 #endif
       
 pila[sp]=n;
-reloj=old_reloj;
+reloj=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -869,7 +869,7 @@ void unload_fnt(void) {
 
 void load_fnt(void) {
   byte * ptr;
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
   int n,an,al,nan,ifonts;
 //printf("load font %s\n",(byte*)&mem[itxt+pila[sp]]);
   for (ifonts=1;ifonts<max_fonts;ifonts++) if (!fonts[ifonts]) break;
@@ -896,7 +896,7 @@ void load_fnt(void) {
       f_i[ifonts].alto=al;
       pila[sp]=ifonts;
     } else { fclose(es); pila[sp]=0; e(e118); }
-  } reloj=old_reloj;
+  } reloj=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -1350,7 +1350,7 @@ FILE * open_save_file(char * file) {
 
 void save(void) {
   int offset,lon;
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
 
   lon=pila[sp--]; offset=pila[sp--];
   if (offset<long_header || offset+lon>imem_max) { pila[sp]=0; e(e122); return; }
@@ -1358,7 +1358,7 @@ void save(void) {
   if (es==NULL) { pila[sp]=0; e(e123); return; }
   if (fwrite(&mem[offset],4,lon,es)!=lon) e(e124);
 
-  fclose(es); reloj=old_reloj;
+  fclose(es); reloj=old_clock;
 }
 
 #else         // Versión instalaciones.
@@ -1404,7 +1404,7 @@ FILE * open_save_file(char * file) {
 
 void save(void) {
   int offset,lon;
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
 
   lon=pila[sp--]; offset=pila[sp--];
   if (offset<long_header || offset+lon>imem_max) { pila[sp]=0; e(e122); return; }
@@ -1417,7 +1417,7 @@ void save(void) {
 //  if (fwrite(&mem[offset],4,lon,es)!=lon) e(e124);
   fwrite(&mem[offset],4,lon,es);
   fclose(es);
-  reloj=old_reloj;
+  reloj=old_clock;
 }
 
 #endif
@@ -1428,7 +1428,7 @@ void save(void) {
 
 void load(void) {
   int offset,lon;
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
 
   offset=pila[sp--];
   if (offset<long_header) { pila[sp]=0; e(e125); return; }
@@ -1436,7 +1436,7 @@ void load(void) {
   fseek(es,0,SEEK_END); lon=ftell(es)/4; fseek(es,0,SEEK_SET);
   if (offset+lon>imem_max) { pila[sp]=0; e(e125); return; }
   if (fread(&mem[offset],4,lon,es)!=lon) e(e127); fclose(es);
-  reloj=old_reloj;
+  reloj=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -1503,7 +1503,7 @@ void load_pcm(void) {
   FILE * f;
   char *ptr;
   int loop;
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
 
   loop=pila[sp--];
   if ((f=div_open_file((byte*)&mem[itxt+pila[sp]]))!=NULL) {
@@ -1519,7 +1519,7 @@ void load_pcm(void) {
 
       } else { fclose(f); pila[sp]=0; e(e128); return; }
   } else e(e128);
-  reloj=old_reloj;
+  reloj=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -1575,7 +1575,7 @@ void set_fps(void) {
   if (pila[sp]>100) pila[sp]=100;
   printf("setting fps(%d,%d)\n",pila[sp],max_saltos);
   dfps = pila[sp];
-  ireloj=100.0/(double)pila[sp];
+  iclock=100.0/(double)pila[sp];
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -1843,11 +1843,11 @@ void fade_on(void) {
 //════════════════════════════════════════════════════════════════════════════
 
 void fade_off(void) {
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
   dacout_r=64; dacout_g=64; dacout_b=64; dacout_speed=8;
   while (now_dacout_r!=dacout_r || now_dacout_g!=dacout_g || now_dacout_b!=dacout_b) {
     set_palette(); set_dac(); //LoopSound();
-  } fading=0; sp++; reloj=old_reloj;
+  } fading=0; sp++; reloj=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -2221,7 +2221,7 @@ void set_color(void) {
 
 void _net_init_ipx(void) { // Ojo, emitir los errores, e(...)
   int s,j,t;
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
 
   t=pila[sp--];
   j=pila[sp--];
@@ -2233,7 +2233,7 @@ void _net_init_ipx(void) { // Ojo, emitir los errores, e(...)
 
   pila[sp]=net_init_ipx(s,j,t);
 
-  reloj=old_reloj;
+  reloj=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -2241,12 +2241,12 @@ void _net_init_ipx(void) { // Ojo, emitir los errores, e(...)
 //════════════════════════════════════════════════════════════════════════════
 
 void _net_init_modem(void) {
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
 
   sp-=6;
   pila[sp]=-1; // ¡¡¡OJO!!! **************************************************
 
-  reloj=old_reloj;
+  reloj=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
@@ -2254,12 +2254,12 @@ void _net_init_modem(void) {
 //════════════════════════════════════════════════════════════════════════════
 
 void _net_init_serial(void) {
-  int old_reloj=get_reloj();
+  int old_clock=get_clock();
 
   sp-=2;
   pila[sp]=-1; // ¡¡¡OJO!!! **************************************************
 
-  reloj=old_reloj;
+  reloj=old_clock;
 }
 
 //════════════════════════════════════════════════════════════════════════════
