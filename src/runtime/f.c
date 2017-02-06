@@ -566,7 +566,7 @@ void nueva_paleta(void) {
 
   memcpy(dac,paleta,768);
   init_ghost();
-  crear_ghost();
+  create_ghost();
 
   find_color(0,0,0); c0=find_col;
   find_color(63,63,63); c1=find_col;

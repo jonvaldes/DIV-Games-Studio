@@ -47,8 +47,8 @@ void volcadopsvga(byte *p);
 void volcadop320200(byte *p);
 void volcadopx(byte * p);
 int graba_PCX(byte *mapa,int an,int al,FILE *f);
-void crear_ghost_vc(int m);
-void crear_ghost_slow(void);
+void create_ghost_vc(int m);
+void create_ghost_slow(void);
 
 // Check if SDL is already loaded
 
@@ -1059,7 +1059,7 @@ void init_ghost(void) {
 int rr,gg,bb;
 int num_puntos;
 
-void crear_ghost(void) {
+void create_ghost(void) {
 
   int n,m;
   int r3,g3,b3,vcubo;
@@ -1081,40 +1081,40 @@ void crear_ghost(void) {
 
       // Cubos de distancia sqr(0) ��������������������������������������������
 
-      crear_ghost_vc(vcubo);
+      create_ghost_vc(vcubo);
 
       if (num_puntos>1) goto fast_ghost;
 
       // Cubos de distancia sqr(1) ��������������������������������������������
 
-      if (r3>0) crear_ghost_vc(vcubo-64);
-      if (r3<7*64) crear_ghost_vc(vcubo+64);
-      if (g3>0) crear_ghost_vc(vcubo-8);
-      if (g3<7*8) crear_ghost_vc(vcubo+8);
-      if (b3>0) crear_ghost_vc(vcubo-1);
-      if (b3<7) crear_ghost_vc(vcubo+1);
+      if (r3>0) create_ghost_vc(vcubo-64);
+      if (r3<7*64) create_ghost_vc(vcubo+64);
+      if (g3>0) create_ghost_vc(vcubo-8);
+      if (g3<7*8) create_ghost_vc(vcubo+8);
+      if (b3>0) create_ghost_vc(vcubo-1);
+      if (b3<7) create_ghost_vc(vcubo+1);
 
       if (num_puntos>2) goto fast_ghost;
 
       // Cubos de distancia sqr(2) ��������������������������������������������
 
       if (r3>0) {
-        if (g3>0) crear_ghost_vc(vcubo-64-8);
-        else { if (g3<7*8) crear_ghost_vc(vcubo-64+8); }
-        if (b3>0) crear_ghost_vc(vcubo-64-1);
-        else { if (b3<7) crear_ghost_vc(vcubo-64+1); }
+        if (g3>0) create_ghost_vc(vcubo-64-8);
+        else { if (g3<7*8) create_ghost_vc(vcubo-64+8); }
+        if (b3>0) create_ghost_vc(vcubo-64-1);
+        else { if (b3<7) create_ghost_vc(vcubo-64+1); }
       } else if (r3<7*64) {
-        if (g3>0) crear_ghost_vc(vcubo+64-8);
-        else { if (g3<7*8) crear_ghost_vc(vcubo+64+8); }
-        if (b3>0) crear_ghost_vc(vcubo+64-1);
-        else { if (b3<7) crear_ghost_vc(vcubo+64+1); }
+        if (g3>0) create_ghost_vc(vcubo+64-8);
+        else { if (g3<7*8) create_ghost_vc(vcubo+64+8); }
+        if (b3>0) create_ghost_vc(vcubo+64-1);
+        else { if (b3<7) create_ghost_vc(vcubo+64+1); }
       }
-      if (g3>0) if (b3>0) crear_ghost_vc(vcubo-8-1);
-                else { if (b3<7) crear_ghost_vc(vcubo-8+1); }
-      else if (g3<7*8) if (b3>0) crear_ghost_vc(vcubo+8-1);
-                else { if (b3<7) crear_ghost_vc(vcubo+8+1); }
+      if (g3>0) if (b3>0) create_ghost_vc(vcubo-8-1);
+                else { if (b3<7) create_ghost_vc(vcubo-8+1); }
+      else if (g3<7*8) if (b3>0) create_ghost_vc(vcubo+8-1);
+                else { if (b3<7) create_ghost_vc(vcubo+8+1); }
 
-      if (find_min==65536) crear_ghost_slow();
+      if (find_min==65536) create_ghost_slow();
 
       fast_ghost: *(ghost+n*256+m)=find_col;
                   *(ghost+m*256+n)=find_col;
@@ -1137,7 +1137,7 @@ void crear_ghost(void) {
 #endif
 }
 
-void crear_ghost_vc(int m) {
+void create_ghost_vc(int m) {
 
   int dif;
   struct t_tpuntos * p;
@@ -1151,7 +1151,7 @@ void crear_ghost_vc(int m) {
   } while ((p=(*p).next)!=NULL);
 }
 
-void crear_ghost_slow (void) {
+void create_ghost_slow (void) {
 
   int dmin,dif;
   byte *pal,*endpal,*color;

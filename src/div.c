@@ -3816,7 +3816,7 @@ fclose(f);
     if (!Interpretando) cprintf("%s",(char *)texto[11]); // *** Cálculos sobre la paleta ***
     memcpy(dac,system_dac,768);
     init_ghost();
-    crear_ghost(1);
+    create_ghost(1);
   }
 
   if (!Interpretando) printf("%s",(char *)texto[12]); // *** Miscelánea ***

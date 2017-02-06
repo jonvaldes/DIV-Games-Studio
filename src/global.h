@@ -247,7 +247,7 @@ void mouse_window(void);
 
 void find_colors(void);
 void init_ghost(void);
-void crear_ghost(int);
+void create_ghost(int);
 void create_dac4();
 byte find_color(byte,byte,byte);
 byte find_color_not0(byte r,byte g,byte b);

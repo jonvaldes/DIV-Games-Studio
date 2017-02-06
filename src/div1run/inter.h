@@ -80,7 +80,7 @@ void partial_dump(int, int, int, int);
 void dump(byte *);
 void restore(byte *, byte *);
 void init_ghost(void);
-void crear_ghost(void);
+void create_ghost(void);
 void find_color(byte, byte, byte);
 
 // S-prites
