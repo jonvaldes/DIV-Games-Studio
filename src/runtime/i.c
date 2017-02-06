@@ -589,7 +589,7 @@ init_rnd(dtime);
 
   init_sin_cos(); // Tablas de seno y coseno para el modo7
 
-  memcpy(paleta,system_dac,768); nueva_paleta();
+  memcpy(paleta,system_dac,768); create_palette();
 
   adaptar_paleta=0; // Hasta que no se llame a force_pal ...
 

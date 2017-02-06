@@ -103,7 +103,7 @@ int get_disty(int a, int d);
 // F-unciones
 
 void function(void);
-void nueva_paleta(void);
+void create_palette(void);
 void init_rnd(int);
 
 // C-olisiones

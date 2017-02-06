@@ -543,14 +543,14 @@ void load_pal(void) {
     dr=dacout_r; dg=dacout_g; db=dacout_b;
     if (dr<63 || dg<63 || db<63) { hacer_fade=1; fade_off(); sp--; }
     memcpy(paleta,pal+offs,768);
-    nueva_paleta();
+    create_palette();
   }
 
   paleta_cargada=1;
   pila[sp]=1;
 }
 
-void nueva_paleta(void) {
+void create_palette(void) {
   byte *p,c0,c1;
   int n;
 
@@ -693,7 +693,7 @@ void descomprime_PCX(byte *buffer, byte *mapa)
       dr=dacout_r; dg=dacout_g; db=dacout_b;
       if (dr<63 || dg<63 || db<63) { hacer_fade=1; fade_off(); sp--; }
       memcpy(paleta,buffer,768);
-      nueva_paleta();
+      create_palette();
     } paleta_cargada=1;
   }
 }
@@ -733,7 +733,7 @@ void load_map(void) {
         dr=dacout_r; dg=dacout_g; db=dacout_b;
         if (dr<63 || dg<63 || db<63) { hacer_fade=1; fade_off(); sp--; }
         memcpy(paleta,ptr+48,768);
-        nueva_paleta();
+        create_palette();
       } paleta_cargada=1;
     }
 
@@ -907,7 +907,7 @@ fclose(es);
       dr=dacout_r; dg=dacout_g; db=dacout_b;
       if (dr<63 || dg<63 || db<63) { hacer_fade=1; fade_off(); sp--; }
       memcpy(paleta,ptr+8,768);
-      nueva_paleta();
+      create_palette();
     } paleta_cargada=1;
   }
 

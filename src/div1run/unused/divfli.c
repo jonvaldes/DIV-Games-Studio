@@ -97,7 +97,7 @@ static void Palette_Update(TFUByte (*TFpalette)[256][3]) {
   dr=now_dacout_r=dacout_r=0;
   dg=now_dacout_g=dacout_g=0;
   db=now_dacout_b=dacout_b=0;
-  nueva_paleta();
+  create_palette();
   paleta_cargada=1;
 
   }
