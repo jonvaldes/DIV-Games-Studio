@@ -1361,7 +1361,7 @@ byte * ptr2;
                 }
 }
 
-void pinta_textos(void) { // E: texto[]
+void draw_texts(void) { // E: texto[]
 
   int n=0,x,y,an,al;
   int fuente;

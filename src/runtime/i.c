@@ -1483,7 +1483,7 @@ void frame_end(void) {
 							memb[nullstring[1]*4]=0;
 							memb[nullstring[2]*4]=0;
 							memb[nullstring[3]*4]=0;
-							pinta_textos(0);
+							draw_texts(0);
 #ifdef DEBUG
 							function_exec(250,get_ticks()-oreloj);
 #endif
@@ -1577,7 +1577,7 @@ void frame_end(void) {
 					memb[nullstring[1]*4]=0;
 					memb[nullstring[2]*4]=0;
 					memb[nullstring[3]*4]=0;
-					pinta_textos(0);
+					draw_texts(0);
 #ifdef DEBUG
 					function_exec(250,get_ticks()-oreloj);
 #endif
@@ -1586,7 +1586,7 @@ void frame_end(void) {
 #endif // NDEFNOTYET
 
 				if (demo)
-					pinta_textos(max_textos);
+					draw_texts(max_textos);
 
 				if (post_process_buffer!=NULL)
 					post_process_buffer();

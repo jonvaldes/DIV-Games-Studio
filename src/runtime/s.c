@@ -1736,7 +1736,7 @@ byte * ptr2;
 
 void checkpal_font(int ifonts);
 
-void pinta_textos(int n) { // E: texto[]
+void draw_texts(int n) { // E: texto[]
 
   int x,y,an,al;
   int fuente;

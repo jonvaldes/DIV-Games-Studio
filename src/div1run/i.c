@@ -1301,7 +1301,7 @@ emscripten_run_script (buf);
 
       if (otheride) {
       	if (otheride==1) {
-      	  pinta_textos(); textos_pintados=1;
+      	  draw_texts(); textos_pintados=1;
       	} else if (otheride==2) {
           readmouse();
 //      	  if (cbd.mouse_action) { // Para evitar retardos (en lo posible)

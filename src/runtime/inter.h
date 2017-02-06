@@ -128,7 +128,7 @@ void sp_clipped(byte * p, int x, int y, int an, int al, int flags);
 void sp_scaled(byte*,int,int,int,int,int,int,int,int);
 void sp_rotated(byte*,int,int,int,int,int,int,int,int,int);
 void sp_scan(byte * p,short n,byte * si,int an,int x0,int y0,int x1,int y1);
-void pinta_textos(int n);
+void draw_texts(int n);
 void pinta_drawings(void);
 void init_sin_cos(void);
 void pinta_m7(int);
